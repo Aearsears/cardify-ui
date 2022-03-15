@@ -1,10 +1,11 @@
-import { Typography } from '@mui/material';
+import { CardActionArea, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
-import React from 'react';
+import React, { useState } from 'react';
+import ReactCardFlip from 'react-card-flip';
 
 interface Props {
     question?: string;
@@ -41,10 +42,29 @@ const card = (
 );
 
 function Flashcard(props: Props) {
+    const [isFlipped, setFlipped] = useState(false);
+    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+        event.preventDefault();
+        setFlipped(!isFlipped);
+    };
     return (
-        <Box sx={{ minWidth: 275 }}>
-            <Card variant="elevation">{card}</Card>
-        </Box>
+        <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
+            <Box sx={{ minWidth: 275 }}>
+                <Card variant="elevation">{card}</Card>
+                <Button onClick={handleClick}>Click to flip</Button>
+            </Box>
+            <Box sx={{ minWidth: 275 }}>
+                <Card>
+                    <CardActionArea onClick={handleClick}>
+                        <CardContent>
+                            <Typography variant="h5" component="div">
+                                ETL service
+                            </Typography>
+                        </CardContent>
+                    </CardActionArea>
+                </Card>
+            </Box>
+        </ReactCardFlip>
     );
 }
 
