@@ -5,14 +5,13 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import React from 'react';
-const bull = (
-    <Box
-        component="span"
-        sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-    >
-        •
-    </Box>
-);
+
+interface Props {
+    question?: string;
+    answer?: string;
+    context?: string;
+}
+
 const card = (
     <React.Fragment>
         <CardContent>
@@ -24,7 +23,7 @@ const card = (
                 Word of the Day
             </Typography>
             <Typography variant="h5" component="div">
-                be{bull}nev{bull}o{bull}lent
+                What is AWS Glue?
             </Typography>
             <Typography sx={{ mb: 1.5 }} color="text.secondary">
                 adjective
@@ -40,10 +39,11 @@ const card = (
         </CardActions>
     </React.Fragment>
 );
-function Flashcard(props) {
+
+function Flashcard(props: Props) {
     return (
         <Box sx={{ minWidth: 275 }}>
-            <Card variant="outlined">{card}</Card>
+            <Card variant="elevation">{card}</Card>
         </Box>
     );
 }

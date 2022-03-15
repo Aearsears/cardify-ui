@@ -4,7 +4,7 @@ import TypeIt from 'typeit-react';
 
 function HPAnimation(props) {
     return (
-        <div className="hpanimation flex bg-slate-100">
+        <div className="hpanimation flex">
             <div>
                 <Typography variant="h6">Step 1</Typography>
                 <Typography variant="body1">

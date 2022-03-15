@@ -8,7 +8,9 @@ function StudyDecksIndex(props: Props) {
     return (
         <div>
             <Typography>Your Study Decks</Typography>
-            <div>
+            <div className="flex">
+                <Flashcard></Flashcard>
+                <Flashcard></Flashcard>
                 <Flashcard></Flashcard>
             </div>
         </div>

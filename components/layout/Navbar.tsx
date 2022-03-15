@@ -1,4 +1,5 @@
 import React from 'react';
+
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,7 +13,14 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 
-const pages = ['Products', 'Pricing', 'Blog', 'Sign In', 'Get Started'];
+import Link from 'next/link';
+import ToggleDarkModeButton from './ToggleDarkMode';
+
+const pages = [
+    ['Decks', 'studydecks'],
+    ['Sign In', 'login'],
+    ['Get Started', 'signup']
+];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function Navbar(props) {
@@ -47,7 +55,9 @@ function Navbar(props) {
                         component="div"
                         sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
                     >
-                        Cardify
+                        <Link href="/">
+                            <a>Cardify</a>
+                        </Link>
                     </Typography>
 
                     <Box
@@ -85,15 +95,22 @@ function Navbar(props) {
                             }}
                         >
                             {pages.map((page) => (
-                                <MenuItem
-                                    key={page}
-                                    onClick={handleCloseNavMenu}
-                                >
-                                    <Typography textAlign="center">
-                                        {page}
-                                    </Typography>
-                                </MenuItem>
-                            ))}
+                                <Link href={'/' + page[1]} passHref>
+                                    <MenuItem
+                                        key={page[0]}
+                                        onClick={handleCloseNavMenu}
+                                    >
+                                        <Typography textAlign="center">
+                                            {page[0]}
+                                        </Typography>
+                                    </MenuItem>
+                                </Link>
+                            ))}{' '}
+                            <MenuItem>
+                                <Box>
+                                    <ToggleDarkModeButton></ToggleDarkModeButton>
+                                </Box>
+                            </MenuItem>
                         </Menu>
                     </Box>
                     <Typography
@@ -105,7 +122,9 @@ function Navbar(props) {
                             display: { xs: 'flex', md: 'none' }
                         }}
                     >
-                        Cardify
+                        <Link href="/">
+                            <a>Cardify</a>
+                        </Link>
                     </Typography>
                     <Box
                         sx={{
@@ -114,16 +133,24 @@ function Navbar(props) {
                         }}
                     >
                         {pages.map((page) => (
-                            <Button
-                                key={page}
-                                onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block' }}
-                            >
-                                {page}
-                            </Button>
+                            <Link href={'/' + page[1]}>
+                                <Button
+                                    key={page[1]}
+                                    onClick={handleCloseNavMenu}
+                                    sx={{
+                                        my: 2,
+                                        color: 'white',
+                                        display: 'block'
+                                    }}
+                                >
+                                    {page[0]}
+                                </Button>
+                            </Link>
                         ))}
                     </Box>
-
+                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                        <ToggleDarkModeButton></ToggleDarkModeButton>
+                    </Box>
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton
