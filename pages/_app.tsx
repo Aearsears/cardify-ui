@@ -40,14 +40,13 @@ export default function MyApp({
         localStorage.setItem('mode', newmode.toString());
         setDarkMode(newmode);
     };
-    const theme = useTheme();
     const colorMode = React.useContext(ColourModeContext);
     return (
         <CacheProvider value={emotionCache}>
             <ColourModeContext.Provider
                 value={{ darkMode, setDarkMode: _setDarkMode }}
             >
-                <ThemeProvider theme={darkMode ? darkTheme : theme}>
+                <ThemeProvider theme={darkMode ? darkTheme : lighttheme}>
                     <CssBaseline></CssBaseline>
                     <Layout>
                         <Component {...pageProps} />
