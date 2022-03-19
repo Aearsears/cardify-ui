@@ -11,11 +11,15 @@
         "@emotion/styled": "^11.8.1",
         "@mui/icons-material": "^5.5.0",
         "@mui/material": "^5.5.0",
+        "graphql": "^16.3.0",
         "next": "latest",
+        "next-urql": "^3.3.2",
         "react": "^17.0.2",
         "react-card-flip": "^1.1.5",
         "react-dom": "^17.0.2",
-        "typeit-react": "^2.3.3"
+        "react-is": "^17.0.2",
+        "typeit-react": "^2.3.3",
+        "urql": "^2.2.0"
     },
     "devDependencies": {
         "@types/node": "^17.0.21",

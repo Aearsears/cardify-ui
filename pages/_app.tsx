@@ -11,9 +11,15 @@ import { useState, useEffect } from 'react';
 import { useMediaQuery } from '@mui/material';
 import darkTheme from '../styles/darktheme';
 import lighttheme from '../styles/lighttheme';
+import { createClient, Provider } from 'urql';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
+
+const graphqlClient = createClient({
+    url: 'http://localhost:4000/graphql/',
+    preferGetMethod: false
+});
 
 export default function MyApp({
     Component,
@@ -42,17 +48,19 @@ export default function MyApp({
     };
     const colorMode = React.useContext(ColourModeContext);
     return (
-        <CacheProvider value={emotionCache}>
-            <ColourModeContext.Provider
-                value={{ darkMode, setDarkMode: _setDarkMode }}
-            >
-                <ThemeProvider theme={darkMode ? darkTheme : lighttheme}>
-                    <CssBaseline></CssBaseline>
-                    <Layout>
-                        <Component {...pageProps} />
-                    </Layout>
-                </ThemeProvider>
-            </ColourModeContext.Provider>
-        </CacheProvider>
+        <Provider value={graphqlClient}>
+            <CacheProvider value={emotionCache}>
+                <ColourModeContext.Provider
+                    value={{ darkMode, setDarkMode: _setDarkMode }}
+                >
+                    <ThemeProvider theme={darkMode ? darkTheme : lighttheme}>
+                        <CssBaseline></CssBaseline>
+                        <Layout>
+                            <Component {...pageProps} />
+                        </Layout>
+                    </ThemeProvider>
+                </ColourModeContext.Provider>
+            </CacheProvider>
+        </Provider>
     );
 }
