@@ -17,7 +17,7 @@ import Link from 'next/link';
 import ToggleDarkModeButton from './ToggleDarkMode';
 
 const pages = [
-    ['Decks', 'studydecks'],
+    ['Study Decks', 'studydecks'],
     ['Sign In', 'login'],
     ['Get Started', 'signup']
 ];

@@ -1,7 +1,8 @@
 import { Typography } from '@mui/material';
 import * as React from 'react';
 import { useQuery } from 'urql';
-import Flashcard from '../../components/flashcard/flashcard';
+import Flashcard from '../../components/flashcard/Flashcard';
+import StudyDeck from '../../components/studydeck/StudyDeck';
 
 type Props = {};
 const CardsQuery = `query{
@@ -28,9 +29,11 @@ function StudyDecksIndex(props: Props) {
         <div>
             <Typography>Your Study Decks</Typography>
             <div className="flex">
-                <Flashcard></Flashcard>
-                <Flashcard></Flashcard>
-                <Flashcard></Flashcard>
+                <StudyDeck>
+                    <div className="flex justify-center items-center h-full cursor-pointer">
+                        <Typography className="">COMP 250</Typography>
+                    </div>
+                </StudyDeck>
             </div>
             <div>{data.allQuestions.edges[0].node.questionText}</div>
         </div>

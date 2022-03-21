@@ -49,12 +49,12 @@ function Flashcard(props: Props) {
     };
     return (
         <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
-            <Box sx={{ minWidth: 275 }}>
+            <Box sx={{ width: 200 }}>
                 <Card variant="elevation">{card}</Card>
                 <Button onClick={handleClick}>Click to flip</Button>
             </Box>
-            <Box sx={{ minWidth: 275 }}>
-                <Card>
+            <Box sx={{ width: 200 }}>
+                <Card sx={{ width: 200 }}>
                     <CardActionArea onClick={handleClick}>
                         <CardContent>
                             <Typography variant="h5" component="div">
