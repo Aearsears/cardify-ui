@@ -16,7 +16,7 @@ const Layout = ({ children, title = 'This is the default title' }: Props) => (
         <header>
             <Navbar></Navbar>
         </header>
-        <main>{children}</main>
+        <main className="p-4">{children}</main>
         <MyFooter></MyFooter>
     </div>
 );

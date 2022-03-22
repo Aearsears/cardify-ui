@@ -7,7 +7,11 @@ StudyDeck.propTypes = {};
 function StudyDeck(props) {
     return (
         <div className="flex w-full">
-            <Flashcard></Flashcard>
+            <Flashcard
+                question="what is the captial of the USA?"
+                answer="Washington"
+                context="Geography"
+            ></Flashcard>
             <Flashcard></Flashcard>
             <Flashcard></Flashcard>
         </div>

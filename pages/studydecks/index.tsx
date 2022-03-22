@@ -24,7 +24,6 @@ function StudyDecksIndex(props: Props) {
     const { data, fetching, error } = result;
 
     if (fetching) return <p>Loading...</p>;
-    if (error) return <p>Oh no... {error.message}</p>;
     return (
         <div>
             <Typography>Your Study Decks</Typography>
@@ -35,7 +34,11 @@ function StudyDecksIndex(props: Props) {
                     </div>
                 </StudyDeck>
             </div>
-            <div>{data.allQuestions.edges[0].node.questionText}</div>
+            <div>
+                {error
+                    ? error.message
+                    : data.allQuestions.edges[0].node.questionText}
+            </div>
         </div>
     );
 }

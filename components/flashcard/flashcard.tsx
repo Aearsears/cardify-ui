@@ -13,31 +13,24 @@ interface Props {
     context?: string;
 }
 
-const card = (
+const innerCard = (
+    text: string,
+    handleClick: (event: React.MouseEvent<HTMLElement>) => void,
+    context?: string
+) => (
     <React.Fragment>
-        <CardContent>
-            <Typography
-                sx={{ fontSize: 14 }}
-                color="text.secondary"
-                gutterBottom
-            >
-                Word of the Day
-            </Typography>
-            <Typography variant="h5" component="div">
-                What is AWS Glue?
-            </Typography>
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                adjective
-            </Typography>
-            <Typography variant="body2">
-                well meaning and kindly.
-                <br />
-                {'"a benevolent smile"'}
-            </Typography>
-        </CardContent>
-        <CardActions>
-            <Button size="small">Learn More</Button>
-        </CardActions>
+        <CardActionArea onClick={handleClick}>
+            <CardContent>
+                <Typography variant="h5" component="div">
+                    {text}
+                </Typography>
+                {context ? (
+                    <Typography variant="h6" component="div">
+                        {context}
+                    </Typography>
+                ) : null}
+            </CardContent>
+        </CardActionArea>
     </React.Fragment>
 );
 
@@ -50,18 +43,13 @@ function Flashcard(props: Props) {
     return (
         <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
             <Box sx={{ width: 200 }}>
-                <Card variant="elevation">{card}</Card>
-                <Button onClick={handleClick}>Click to flip</Button>
+                <Card variant="elevation">
+                    {innerCard(props.question, handleClick)}
+                </Card>
             </Box>
             <Box sx={{ width: 200 }}>
-                <Card sx={{ width: 200 }}>
-                    <CardActionArea onClick={handleClick}>
-                        <CardContent>
-                            <Typography variant="h5" component="div">
-                                ETL service
-                            </Typography>
-                        </CardContent>
-                    </CardActionArea>
+                <Card>
+                    {innerCard(props.answer, handleClick, props.context)}
                 </Card>
             </Box>
         </ReactCardFlip>
