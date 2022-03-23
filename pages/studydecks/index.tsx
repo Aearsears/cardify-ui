@@ -18,27 +18,27 @@ const CardsQuery = `query{
  
 }`;
 function StudyDecksIndex(props: Props) {
-    const [result, reexecuteQuery] = useQuery({
-        query: CardsQuery
-    });
-    const { data, fetching, error } = result;
+    // const [result, reexecuteQuery] = useQuery({
+    //     query: CardsQuery
+    // });
+    // const { data, fetching, error } = result;
 
-    if (fetching) return <p>Loading...</p>;
+    // if (fetching) return <p>Loading...</p>;
     return (
         <div>
             <Typography>Your Study Decks</Typography>
-            <div className="flex">
+            <div className="flex justify-center items-center">
                 <StudyDeck>
                     <div className="flex justify-center items-center h-full cursor-pointer">
                         <Typography className="">COMP 250</Typography>
                     </div>
                 </StudyDeck>
             </div>
-            <div>
+            {/* <div>
                 {error
                     ? error.message
                     : data.allQuestions.edges[0].node.questionText}
-            </div>
+            </div> */}
         </div>
     );
 }

@@ -1,10 +1,7 @@
 .animation {
-    display: flex;
-    padding: 0.5rem;
-    margin: 1em;
     animation-name: bounce;
-    animation-duration: 2s;
-    animation-timing-function: cubic-bezier();
+    animation-duration: 5s;
+    animation-timing-function: cubic-bezier(0.2, 0.65, 0.6, 1);
     animation-iteration-count: infinite;
     animation-direction: normal;
     animation-play-state: paused;
@@ -13,17 +10,47 @@
     animation-play-state: running;
 }
 
+.one {
+    --bounce-offset: -50px;
+    height: 200px;
+    width: 200px;
+    padding: 0.5rem;
+}
+.two {
+    --bounce-offset: -50px;
+    height: 200px;
+    width: 200px;
+    padding: 0.5rem;
+    position: relative;
+}
+.three {
+    --bounce-offset: -50px;
+    height: 200px;
+    width: 200px;
+    padding: 0.5rem;
+    position: relative;
+}
+.four {
+    --bounce-offset: -50px;
+    height: 200px;
+    width: 200px;
+    padding: 0.5rem;
+    position: relative;
+}
 @keyframes bounce {
     0% {
-        transform: translateX(-25px);
+        transform: translateX(0px);
     }
-    20% {
-        transform: translateX(-50px);
+    50% {
+        transform: translateX(0px);
+    }
+    60% {
+        transform: translateX(var(--bounce-offset));
     }
     80% {
-        transform: translateX(-25px);
+        transform: translateX(calc((var(--bounce-offset)+10px)));
     }
     100% {
-        transform: translateX(-50px);
+        transform: translateX(0px);
     }
 }
