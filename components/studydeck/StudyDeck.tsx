@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Paper } from '@mui/material';
 import Link from 'next/link';
@@ -10,19 +10,30 @@ interface Props {
 }
 function StudyDeck(props: Props) {
     // need to finish animation if started on hover and user moves mouse away
+    const [animated, setAnimated] = useState(false);
+
     return (
-        <Paper elevation={3} className={`${styles.animation} ${styles.one}`}>
+        <Paper
+            elevation={3}
+            className={`${animated ? styles.animation : ''} ${styles.one}`}
+            onMouseEnter={() => setAnimated(() => true)}
+            onAnimationEnd={() => setAnimated(() => false)}
+        >
             <Paper
                 elevation={6}
-                className={`${styles.animation} ${styles.two}`}
+                className={`${animated ? styles.animation : ''} ${styles.two}`}
             >
                 <Paper
                     elevation={12}
-                    className={`${styles.animation} ${styles.three}`}
+                    className={`${animated ? styles.animation : ''} ${
+                        styles.three
+                    }`}
                 >
                     <Paper
                         elevation={24}
-                        className={`${styles.animation} ${styles.four}`}
+                        className={`${animated ? styles.animation : ''} ${
+                            styles.four
+                        }`}
                     >
                         <Link href="/studydecks/1">{props.children}</Link>
                     </Paper>
