@@ -9,6 +9,16 @@ function Homepage(props) {
                 Turn your notes into study cards in a flash
             </Typography>
             <HPAnimation></HPAnimation>
+            <div className="section h-96">
+                <Typography variant="h2" className="text-center">
+                    Turn your notes into study cards in a flash
+                </Typography>
+            </div>
+            <div className="section h-96">
+                <Typography variant="h2" className="text-center">
+                    Turn your notes into study cards in a flash
+                </Typography>
+            </div>
         </div>
     );
 }
