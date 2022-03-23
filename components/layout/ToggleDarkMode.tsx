@@ -25,10 +25,11 @@ const ToggleDarkModeButton = () => {
                 }}
             >
                 <Tooltip
-                    title={`${
-                        theme.palette.mode.charAt(0).toUpperCase() +
-                        theme.palette.mode.slice(1)
-                    } mode`}
+                    title={
+                        theme.palette.mode === 'light'
+                            ? 'Dark mode'
+                            : 'Light mode'
+                    }
                 >
                     <IconButton
                         onClick={() => setDarkMode(!darkMode)}
