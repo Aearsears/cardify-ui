@@ -5,15 +5,19 @@ import { red } from '@mui/material/colors';
 const lighttheme = createTheme({
     palette: {
         primary: {
-            main: '#556cd6',
-            light: '#f1f5f9'
+            main: '#84acce'
         },
         secondary: {
-            main: 'rgb(0 0 0 / 54%)'
+            main: '#d7d9b1'
+        },
+        background: {
+            default: 'rgb(244 244 245);',
+            paper: '#fff'
         },
         error: {
             main: red.A400
-        }
+        },
+        divider: 'rgba(0, 0, 0, 0.12)'
     },
     breakpoints: {
         values: {

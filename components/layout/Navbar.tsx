@@ -46,7 +46,7 @@ function Navbar(props) {
         setAnchorElUser(null);
     };
     return (
-        <AppBar position="fixed">
+        <AppBar position="fixed" color="primary">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Typography

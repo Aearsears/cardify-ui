@@ -6,22 +6,26 @@ const darktheme = createTheme({
     palette: {
         mode: 'dark',
         primary: {
-            main: '#556cd6',
-            light: '#f1f5f9'
+            main: '#827191'
         },
         secondary: {
-            main: '#94a3b8'
+            main: '#7d1d3f'
         },
         error: {
             main: red.A400
         },
+        info: {
+            main: '#512500'
+        },
         background: {
-            default: '#070919'
+            paper: '#424242',
+            default: '#303030'
         },
         text: {
             primary: '#f1f5f9',
             secondary: '#94a3b8'
-        }
+        },
+        divider: 'rgba(255, 255, 255, 0.12)'
     },
     breakpoints: {
         values: {
