@@ -139,11 +139,11 @@ function Navbar(props) {
                                     onClick={handleCloseNavMenu}
                                     sx={{
                                         my: 2,
-                                        color: 'white',
                                         display: 'block'
                                     }}
+                                    color="inherit"
                                 >
-                                    {page[0]}
+                                    <Typography>{page[0]}</Typography>
                                 </Button>
                             </Link>
                         ))}
@@ -158,7 +158,7 @@ function Navbar(props) {
                                 sx={{ p: 0 }}
                             >
                                 <Avatar
-                                    alt="Remy Sharp"
+                                    alt="D"
                                     src="/static/images/avatar/2.jpg"
                                 />
                             </IconButton>

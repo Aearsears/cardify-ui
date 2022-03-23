@@ -5,7 +5,8 @@ import { red } from '@mui/material/colors';
 const lighttheme = createTheme({
     palette: {
         primary: {
-            main: '#84acce'
+            main: '#84acce',
+            contrastText: '#000000'
         },
         secondary: {
             main: '#d7d9b1'
@@ -13,6 +14,9 @@ const lighttheme = createTheme({
         background: {
             default: 'rgb(244 244 245);',
             paper: '#fff'
+        },
+        text: {
+            primary: 'rgba(0, 0, 0, 0.87)'
         },
         error: {
             main: red.A400
