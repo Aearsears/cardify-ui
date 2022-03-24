@@ -43,7 +43,7 @@ export default function MyApp({
     // }, [darkMode]);
     const _setDarkMode = (newmode: boolean) => {
         console.log(`set localStore ${newmode}`);
-        localStorage.setItem('mode', newmode.toString());
+        localStorage.setItem('darkmode', newmode.toString());
         setDarkMode(newmode);
     };
     const colorMode = React.useContext(ColourModeContext);
