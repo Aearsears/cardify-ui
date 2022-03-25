@@ -27,7 +27,8 @@ function StudyDecksIndex(props: Props) {
     return (
         <div>
             <Typography>Your Study Decks</Typography>
-            <div className="flex justify-center items-center">
+            <Typography>new study deck</Typography>
+            <div className="flex justify-start items-center">
                 <StudyDeck>
                     <div className="flex justify-center items-center h-full cursor-pointer">
                         <Typography className="">COMP 250</Typography>
