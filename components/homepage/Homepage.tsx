@@ -1,8 +1,10 @@
-import { Button, Divider, Typography } from '@mui/material';
+import { Box, Button, Divider, Typography } from '@mui/material';
 import Image from 'next/image';
 import React, { useContext } from 'react';
 import ColourModeContext from '../../styles/ColourModeContext';
 import HPAnimation from './HPAnimation';
+
+import styles from './Homepage.module.css';
 
 import study_dark from '../../public/homepage/study_dark.png';
 import study_light from '../../public/homepage/study_light.png';
@@ -15,6 +17,12 @@ import calendar_light from '../../public/homepage/calendar_light.png';
 import calendar_2_dark from '../../public/homepage/calendar_2_dark.png';
 import calendar_2_light from '../../public/homepage/calendar_2_light.png';
 
+import BoltSharpIcon from '@mui/icons-material/BoltSharp';
+import BorderColorSharpIcon from '@mui/icons-material/BorderColorSharp';
+import SettingsSharpIcon from '@mui/icons-material/SettingsSharp';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import Emoji from '../Emoji';
+
 function Homepage(props) {
     const { darkMode } = useContext(ColourModeContext);
     return (
@@ -24,35 +32,40 @@ function Homepage(props) {
                     Turn your notes into study cards in a flash
                 </Typography>
                 <HPAnimation></HPAnimation>
-                <Button color="primary" variant="contained">
-                    test
-                </Button>
-                <Button color="secondary" variant="contained">
-                    test
-                </Button>
+                <div>
+                    <Typography>try it out!</Typography>
+                </div>
             </div>
             <Divider light variant="middle" />
-            <div className="section h-96 mt-4">
-                <Typography variant="h2" className="text-center">
-                    Turn your notes into study cards in a flash
-                </Typography>
-                <div className="w-96 h-96 ">
+            <div className={`${styles.section} h-full mt-4 flex items-center`}>
+                <div className="w-6/12 h-6/12 flex items-center justify-center">
                     <Image
                         src={darkMode ? exam_dark : exam_light}
-                        height="1200"
-                        width="1600"
                         placeholder="blur"
                     ></Image>
                 </div>
-                <div>some text</div>
+                <div className="text">
+                    <Typography variant="h3" className="text-center">
+                        Study more efficiently by leveraging state of the art
+                        A.I.
+                    </Typography>
+                    <Typography variant="h6" className="text-center">
+                        Save time, money and beat the competition.
+                    </Typography>
+                </div>
             </div>
             <Divider light variant="middle" />
-            <div className="section h-96  mt-4">
-                <Typography variant="h2" className="text-center ">
-                    Turn your notes into study cards in a flash
-                </Typography>
-                <div>left: text</div>
-                <div className="w-96 h-96 ">
+            <div className={`${styles.section} h-full mt-4 flex items-center`}>
+                <div className="text">
+                    <Typography variant="h3" className="text-center">
+                        Proven results. Great satification.
+                    </Typography>
+                    <Typography variant="h6" className="text-center">
+                        Get the results you want. <br></br>Flashcard will help
+                        you retain up to 75% more information.
+                    </Typography>
+                </div>
+                <div className="w-6/12 h-6/12 flex items-center justify-center">
                     <Image
                         src={darkMode ? results_dark : results_light}
                         height="1200"
@@ -62,36 +75,58 @@ function Homepage(props) {
                 </div>
             </div>
             <Divider light variant="middle" />
-            <div className="section h-96  mt-4">
-                <Typography variant="h2" className="text-center ">
-                    Turn your notes into study cards in a flash
-                </Typography>
-                <div className="flex">
-                    <div className="w-96 h-96 ">
-                        <Image
-                            src={darkMode ? study_dark : study_light}
-                            height="1200"
-                            width="1600"
-                            placeholder="blur"
-                        ></Image>
+            <div className="section h-full mt-4">
+                <div className="text">
+                    <Typography variant="h3" className="text-center">
+                        Cardify's ecosystem synergizes well with students and
+                        professors alike.
+                    </Typography>
+                </div>
+                <div className="flex items-center">
+                    <div className="w-6/12 h-6/12 flex items-center justify-center flex-wrap flex-row">
+                        <BoltSharpIcon
+                            sx={{ fontSize: 350 }}
+                            color="secondary"
+                        ></BoltSharpIcon>
+                        <Typography className="text-center" component="div">
+                            Lightning fast creation of flash card so you are up
+                            and running in seconds.
+                        </Typography>
                     </div>
-                    <div className="w-96 h-96 ">
-                        <Image
-                            src={darkMode ? calendar_dark : calendar_light}
-                            height="1200"
-                            width="1600"
-                            placeholder="blur"
-                        ></Image>
+                    <div className="w-6/12 h-6/12 flex items-center justify-center flex-wrap flex-row">
+                        <BorderColorSharpIcon
+                            sx={{ fontSize: 350 }}
+                            color="secondary"
+                        ></BorderColorSharpIcon>
+                        <Typography className="text-center" component="div">
+                            Focus on taking high quality notes.
+                        </Typography>
                     </div>
-                    <div>icon and text</div>
-                    <div className="w-96 h-96 ">
-                        <Image
-                            src={darkMode ? calendar_2_dark : calendar_2_light}
-                            height="1200"
-                            width="1600"
-                            placeholder="blur"
-                        ></Image>
+                    <div className="w-6/12 h-6/12 flex items-center justify-center flex-wrap flex-row">
+                        <SettingsSharpIcon
+                            sx={{ fontSize: 350 }}
+                            color="secondary"
+                        ></SettingsSharpIcon>
+                        <Typography className="text-center" component="div">
+                            Easy setup and supports multiple study decks.
+                        </Typography>
                     </div>
+                </div>
+            </div>
+            <Divider light variant="middle" />
+            <div className={`${styles.section} h-full mt-4`}>
+                <div className="text">
+                    <Typography variant="h3" className="text-center">
+                        Ready for{' '}
+                        <Box component="span" fontStyle="italic">
+                            speed?
+                        </Box>{' '}
+                        <Emoji label="car" symbol="🏎️"></Emoji>
+                    </Typography>{' '}
+                    <Button color="primary" variant="contained">
+                        Sign up
+                        <ArrowForwardIcon></ArrowForwardIcon>
+                    </Button>
                 </div>
             </div>
         </div>
