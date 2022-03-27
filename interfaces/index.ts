@@ -8,3 +8,8 @@ export type User = {
     id: number;
     name: string;
 };
+export interface Card {
+    question: string;
+    answer: string;
+    context: string;
+}
