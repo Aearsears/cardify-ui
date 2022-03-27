@@ -22,6 +22,7 @@ import BorderColorSharpIcon from '@mui/icons-material/BorderColorSharp';
 import SettingsSharpIcon from '@mui/icons-material/SettingsSharp';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Emoji from '../Emoji';
+import HPCodeBlock from './HPCodeBlock';
 
 function Homepage(props) {
     const { darkMode } = useContext(ColourModeContext);
@@ -31,9 +32,9 @@ function Homepage(props) {
                 <Typography variant="h2" className="text-center ">
                     Turn your notes into study cards in a flash
                 </Typography>
-                <HPAnimation></HPAnimation>
-                <div>
-                    <Typography>try it out!</Typography>
+                <div className="grid grid-flow-row grid-cols-2">
+                    <HPAnimation></HPAnimation>
+                    <HPCodeBlock></HPCodeBlock>
                 </div>
             </div>
             <Divider light variant="middle" />
