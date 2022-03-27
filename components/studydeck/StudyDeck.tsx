@@ -9,7 +9,6 @@ interface Props {
     children?: React.ReactNode;
 }
 function StudyDeck(props: Props) {
-    // need to finish animation if started on hover and user moves mouse away
     const [animated, setAnimated] = useState(false);
 
     return (
