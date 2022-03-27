@@ -19,18 +19,16 @@ const innerCard = (
     context?: string
 ) => (
     <React.Fragment>
-        <CardActionArea onClick={handleClick}>
-            <CardContent>
-                <Typography variant="h5" component="div">
-                    {text}
+        <CardContent>
+            <Typography variant="h5" component="div">
+                {text}
+            </Typography>
+            {context ? (
+                <Typography variant="h6" component="div">
+                    {context}
                 </Typography>
-                {context ? (
-                    <Typography variant="h6" component="div">
-                        {context}
-                    </Typography>
-                ) : null}
-            </CardContent>
-        </CardActionArea>
+            ) : null}
+        </CardContent>
     </React.Fragment>
 );
 
@@ -42,14 +40,21 @@ function Flashcard(props: Props) {
     };
     return (
         <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
-            <Box sx={{ width: 200 }}>
-                <Card variant="elevation">
-                    {innerCard(props.question, handleClick)}
+            <Box>
+                <Card variant="elevation" sx={{ width: 200, height: 200 }}>
+                    <CardActionArea
+                        onClick={handleClick}
+                        className="w-full h-full"
+                    >
+                        {innerCard(props.question, handleClick)}
+                    </CardActionArea>
                 </Card>
             </Box>
-            <Box sx={{ width: 200 }}>
-                <Card>
-                    {innerCard(props.answer, handleClick, props.context)}
+            <Box>
+                <Card variant="elevation" sx={{ width: 200, height: 200 }}>
+                    <CardActionArea onClick={handleClick}>
+                        {innerCard(props.answer, handleClick, props.context)}
+                    </CardActionArea>
                 </Card>
             </Box>
         </ReactCardFlip>
