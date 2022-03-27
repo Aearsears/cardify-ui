@@ -2,7 +2,7 @@ import { CardActionArea, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactCardFlip from 'react-card-flip';
 
 interface Props {
@@ -42,8 +42,16 @@ function Flashcard(props: Props) {
         event.preventDefault();
         setFlipped(!isFlipped);
     };
+    useEffect(() => {
+        setFlipped(false);
+    }, [props.answer, props.question, props.question]);
     return (
-        <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
+        <ReactCardFlip
+            isFlipped={isFlipped}
+            flipDirection="horizontal"
+            flipSpeedBackToFront={0}
+            flipSpeedFrontToBack={0.3}
+        >
             {innerCard(props.question, handleClick)}
             {innerCard(
                 props.answer,

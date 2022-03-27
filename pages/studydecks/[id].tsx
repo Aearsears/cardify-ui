@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Flashcard from '../../components/flashcard/Flashcard';
 import { Card } from '../../interfaces';
-import { Button, IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 StudyDeck.propTypes = {};
@@ -32,7 +32,6 @@ function StudyDeck(props) {
         let n = cards.length;
         setCounter((((cardCounter + 1) % n) + n) % cards.length);
     };
-
     const goBack = () => {
         let n = cards.length;
         setCounter((((cardCounter - 1) % n) + n) % cards.length);
