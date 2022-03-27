@@ -1,0 +1,8 @@
+.listInline {
+    list-style: none;
+    text-align: center;
+}
+.listInlineItem {
+    display: inline;
+    margin-right: 1rem;
+}

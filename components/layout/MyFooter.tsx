@@ -1,41 +1,31 @@
+import { Divider, Typography } from '@mui/material';
 import React from 'react';
+import styles from './MyFooter.module.css';
 
 function MyFooter(props) {
     return (
         <footer>
-            <hr />
-            <div className="social">
-                <a href="#">
-                    <i className="icon ion-social-instagram"></i>
-                </a>
-                <a href="#">
-                    <i className="icon ion-social-snapchat"></i>
-                </a>
-                <a href="#">
-                    <i className="icon ion-social-twitter"></i>
-                </a>
-                <a href="#">
-                    <i className="icon ion-social-facebook"></i>
-                </a>
-            </div>
-            <ul className="list-inline">
-                <li className="list-inline-item">
-                    <a href="#">Home</a>
-                </li>
-                <li className="list-inline-item">
-                    <a href="#">Services</a>
-                </li>
-                <li className="list-inline-item">
-                    <a href="#">About</a>
-                </li>
-                <li className="list-inline-item">
-                    <a href="#">Terms</a>
-                </li>
-                <li className="list-inline-item">
-                    <a href="#">Privacy Policy</a>
-                </li>
-            </ul>
-            <p className="copyright">Cardify © 2022</p>
+            <Divider></Divider>
+            <Typography component="div" className="m-auto">
+                <ul className={styles.listInline}>
+                    <li className={styles.listInlineItem}>
+                        <a href="#">Home</a>
+                    </li>
+                    <li className={styles.listInlineItem}>
+                        <a href="#">Services</a>
+                    </li>
+                    <li className={styles.listInlineItem}>
+                        <a href="#">About</a>
+                    </li>
+                    <li className={styles.listInlineItem}>
+                        <a href="#">Terms</a>
+                    </li>
+                    <li className={styles.listInlineItem}>
+                        <a href="#">Privacy Policy</a>
+                    </li>
+                </ul>
+                <p className="text-center">Cardify © 2022</p>
+            </Typography>
         </footer>
     );
 }
