@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Flashcard from '../../components/flashcard/Flashcard';
 import { Card } from '../../interfaces';
@@ -25,7 +25,9 @@ function StudyDeck(props) {
             context: 'math'
         }
     ];
+
     const [cardCounter, setCounter] = useState(0);
+    const [isFlipped, setFlipped] = useState(false);
 
     const goForward = () => {
         //((a % n ) + n ) % n
@@ -37,14 +39,35 @@ function StudyDeck(props) {
         setCounter((((cardCounter - 1) % n) + n) % cards.length);
     };
 
+    const handleCardClick = (event: React.MouseEvent<HTMLElement>) => {
+        event.preventDefault();
+        setFlipped(!isFlipped);
+    };
+    const handleSpacebar = (event: React.KeyboardEvent<HTMLElement>) => {
+        if (event.code === '32') {
+            setFlipped(!isFlipped);
+        }
+    };
+
+    useEffect(() => {
+        setFlipped(false);
+    }, [cardCounter]);
+
     return (
-        <div className=" w-full">
+        <div
+            className=" w-full"
+            onKeyPress={(e: React.KeyboardEvent<HTMLElement>) => {
+                handleSpacebar(e);
+            }}
+        >
             <div className=" w-full p-4">
                 <div className="card-container text-center flex items-center justify-center">
                     <Flashcard
                         question={cards[cardCounter].question}
                         answer={cards[cardCounter].answer}
                         context={cards[cardCounter].context}
+                        clickHandler={handleCardClick}
+                        flipped={isFlipped}
                     ></Flashcard>
                 </div>
                 <div className="buttons-wrapper text-center">
@@ -52,14 +75,14 @@ function StudyDeck(props) {
                         <IconButton
                             aria-label="back"
                             size="large"
-                            onClick={() => goBack()}
+                            onClick={goBack}
                         >
                             <ArrowBackIosNewIcon fontSize="inherit" />
                         </IconButton>
                         <IconButton
                             aria-label="forward"
                             size="large"
-                            onClick={() => goForward()}
+                            onClick={goForward}
                         >
                             <ArrowForwardIosIcon fontSize="inherit" />
                         </IconButton>
