@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Paper } from '@mui/material';
 import Link from 'next/link';
 import styles from './StudyDeck.module.css';
+import { User } from '../../interfaces/index';
 
 StudyDeck.propTypes = {};
 interface Props {
@@ -11,6 +12,14 @@ interface Props {
 function StudyDeck(props: Props) {
     const [animated, setAnimated] = useState(false);
 
+    const data: User[] = null;
+    useEffect(() => {
+        fetch('api/users')
+            .then((res) => res.json())
+            .then((data) => {
+                data = data;
+            });
+    }, []);
     return (
         <Paper
             elevation={3}
