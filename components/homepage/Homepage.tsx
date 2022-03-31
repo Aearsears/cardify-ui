@@ -124,10 +124,15 @@ function Homepage(props) {
                         </Box>{' '}
                         <Emoji label="car" symbol="🏎️"></Emoji>
                     </Typography>{' '}
-                    <Button color="primary" variant="contained">
-                        Sign up
-                        <ArrowForwardIcon></ArrowForwardIcon>
-                    </Button>
+                    <div className="flex items-center justify-center m-2">
+                        <Button
+                            variant="contained"
+                            className={`${styles.anim} text-center`}
+                        >
+                            Sign up
+                            <ArrowForwardIcon></ArrowForwardIcon>
+                        </Button>
+                    </div>
                 </div>
             </div>
         </div>
