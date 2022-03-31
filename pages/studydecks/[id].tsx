@@ -44,8 +44,13 @@ function StudyDeck(props) {
         setFlipped(!isFlipped);
     };
     const handleSpacebar = (event: React.KeyboardEvent<HTMLElement>) => {
-        if (event.code === '32') {
+        console.log(event.code);
+        if (event.code === 'Space') {
             setFlipped(!isFlipped);
+        } else if (event.code === 'ArrowRight') {
+            goForward();
+        } else if (event.code === 'ArrowLeft') {
+            goBack();
         }
     };
 
@@ -56,9 +61,11 @@ function StudyDeck(props) {
     return (
         <div
             className=" w-full"
-            onKeyPress={(e: React.KeyboardEvent<HTMLElement>) => {
+            // The keydown event is fired when a key is pressed down. Unlike the keypress event, the keydown event is fired for keys that produce a character value and for keys that do not produce a character value.
+            onKeyDown={(e: React.KeyboardEvent<HTMLElement>) => {
                 handleSpacebar(e);
             }}
+            tabIndex={-1}
         >
             <div className=" w-full p-4">
                 <div className="card-container text-center flex items-center justify-center">
