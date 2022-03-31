@@ -86,6 +86,9 @@ function StudyDeck(props) {
                         >
                             <ArrowBackIosNewIcon fontSize="inherit" />
                         </IconButton>
+                        <span>
+                            {cardCounter + 1} of {cards.length}
+                        </span>
                         <IconButton
                             aria-label="forward"
                             size="large"
