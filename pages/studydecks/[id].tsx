@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Card } from '../../interfaces';
-import { Button, Typography } from '@mui/material';
+import { Button, IconButton, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import EditCard from '../../components/studydeck/EditCard';
 import Link from 'next/link';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 StudyDeck.propTypes = {};
 
 function StudyDeck(props) {
@@ -52,6 +53,11 @@ function StudyDeck(props) {
                         ></EditCard>
                     );
                 })}
+            </div>
+            <div className="text-center">
+                <IconButton size="large">
+                    <AddCircleIcon></AddCircleIcon>
+                </IconButton>
             </div>
         </div>
     );

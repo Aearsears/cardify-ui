@@ -21,6 +21,7 @@ import BoltSharpIcon from '@mui/icons-material/BoltSharp';
 import BorderColorSharpIcon from '@mui/icons-material/BorderColorSharp';
 import SettingsSharpIcon from '@mui/icons-material/SettingsSharp';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import SendIcon from '@mui/icons-material/Send';
 import Emoji from '../Emoji';
 import HPCodeBlock from './HPCodeBlock';
 
@@ -128,9 +129,9 @@ function Homepage(props) {
                         <Button
                             variant="contained"
                             className={`${styles.anim} text-center`}
+                            endIcon={<SendIcon></SendIcon>}
                         >
                             Sign up
-                            <ArrowForwardIcon></ArrowForwardIcon>
                         </Button>
                     </div>
                 </div>
