@@ -32,9 +32,13 @@ function StudyDeck(props) {
     return (
         <div>
             <div>
-                <Typography>Title</Typography>
                 <div>
-                    start studying button right hand side pane
+                    <Typography>Title</Typography>
+                    <Typography variant="subtitle1">
+                        {cards.length} cards
+                    </Typography>
+                </div>
+                <div className="text-right">
                     <Link href={`/studydecks/${id}/study`} passHref>
                         <Button color="secondary" variant="contained">
                             Start studying
