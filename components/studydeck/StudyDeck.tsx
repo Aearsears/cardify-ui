@@ -8,6 +8,8 @@ import { User } from '../../interfaces/index';
 StudyDeck.propTypes = {};
 interface Props {
     children?: React.ReactNode;
+
+    studyDeckID: number;
 }
 function StudyDeck(props: Props) {
     const [animated, setAnimated] = useState(false);
@@ -43,7 +45,9 @@ function StudyDeck(props: Props) {
                             styles.four
                         }`}
                     >
-                        <Link href="/studydecks/1">{props.children}</Link>
+                        <Link href={`/studydecks/${props.studyDeckID}`}>
+                            {props.children}
+                        </Link>
                     </Paper>
                 </Paper>
             </Paper>

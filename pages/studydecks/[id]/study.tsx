@@ -5,10 +5,12 @@ import Flashcard from '../../../components/flashcard/Flashcard';
 import { Card } from '../../../interfaces';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { useRouter } from 'next/router';
 
 Study.propTypes = {};
 
 function Study(props) {
+    const router = useRouter();
     const cards: Card[] = [
         {
             question: 'What is the capital of USA?',
@@ -69,7 +71,13 @@ function Study(props) {
             tabIndex={-1}
         >
             <div className="buttons">
-                <Button variant="contained">Go back</Button>
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={() => router.back()}
+                >
+                    Go back
+                </Button>
             </div>
             <div className=" w-full p-4">
                 <div className="card-container text-center flex items-center justify-center">
