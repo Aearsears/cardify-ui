@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Card } from '../../interfaces';
-import { Button, IconButton, Typography } from '@mui/material';
+import { Button, Fab, IconButton, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import EditCard from '../../components/studydeck/EditCard';
 import Link from 'next/link';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import AddIcon from '@mui/icons-material/Add';
 StudyDeck.propTypes = {};
 
 function StudyDeck(props) {
@@ -33,7 +34,7 @@ function StudyDeck(props) {
         <div>
             <div>
                 <div>
-                    <Typography>Title</Typography>
+                    <Typography>COMP 250</Typography>
                     <Typography variant="subtitle1">
                         {cards.length} cards
                     </Typography>
@@ -47,7 +48,7 @@ function StudyDeck(props) {
                 </div>
             </div>
             <div className="edit-section">
-                <Typography>edit cards</Typography>
+                <Typography>Edit cards</Typography>
                 {cards.map((value) => {
                     return (
                         <EditCard
@@ -59,9 +60,9 @@ function StudyDeck(props) {
                 })}
             </div>
             <div className="text-center">
-                <IconButton size="large">
-                    <AddCircleIcon></AddCircleIcon>
-                </IconButton>
+                <Fab color="primary" aria-label="add">
+                    <AddIcon />
+                </Fab>
             </div>
         </div>
     );
