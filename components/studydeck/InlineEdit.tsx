@@ -1,36 +1,25 @@
 import React from 'react';
 
-function InlineEdit<P extends Object>(
-    Component: React.ComponentType<P>,
-    text: string
-) {
+function withInlineEdit<T>(Component: React.ComponentType<T>) {
     // if clicked, then show the textfield
-
     //else show typography
-    return class InlineEdit extends React.Component<
-        { P },
-        { clicked: boolean }
-    > {
+    return class InlineEdit extends React.Component<T, { clicked: boolean }> {
         constructor(props) {
             super(props);
-
+            this.clickhandler = this.clickhandler.bind(this);
             this.state = {
                 clicked: false
             };
         }
         clickhandler = () => {
-            console.log('hello');
+            console.log('hello in HOC');
         };
         render() {
             return (
-                <Component
-                    clicked={this.state.clicked}
-                    onClick={this.clickhandler}
-                    {...(this.props as P)}
-                ></Component>
+                <Component onClick={this.clickhandler} {...(this.props as T)} />
             );
         }
     };
 }
 
-export default InlineEdit;
+export default withInlineEdit;
