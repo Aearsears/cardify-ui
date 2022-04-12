@@ -4,6 +4,7 @@ import InlineEdit from './InlineEdit';
 
 interface Props {
     content: string;
+    className?: string;
 }
 
 function EditCardRow(props: Props) {
@@ -19,6 +20,7 @@ function EditCardRow(props: Props) {
             placeholder="Write a task name"
             childRef={inputRef}
             type="input"
+            className={props.className}
         >
             <input
                 ref={inputRef}

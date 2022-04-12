@@ -18,19 +18,28 @@ function EditCard(props: Props) {
                 <Typography component="div" className="py-2">
                     Q:
                 </Typography>
-                <EditCardRow content={props.question}></EditCardRow>
+                <EditCardRow
+                    content={props.question}
+                    className="grow"
+                ></EditCardRow>
             </div>
             <div className="flex">
                 <Typography component="div" className="py-2">
                     A:
                 </Typography>
-                <EditCardRow content={props.answer}></EditCardRow>
+                <EditCardRow
+                    content={props.answer}
+                    className="grow"
+                ></EditCardRow>
             </div>
             <div className="flex">
                 <Typography component="div" className="py-2">
                     Context:
                 </Typography>
-                <EditCardRow content={props.context}></EditCardRow>
+                <EditCardRow
+                    content={props.context}
+                    className="grow"
+                ></EditCardRow>
             </div>
         </Paper>
     );
