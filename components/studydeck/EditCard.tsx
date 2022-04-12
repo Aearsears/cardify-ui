@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './EditCard.module.css';
-import { Paper } from '@mui/material';
-import withInlineEdit from './InlineEdit';
+import { Paper, Typography } from '@mui/material';
+import EditCardRow from './EditCardRow';
 EditCard.propTypes = {};
 
 interface Props {
@@ -10,25 +10,28 @@ interface Props {
     answer?: string;
     context?: string;
 }
-function Row(props: Props) {
-    if (props.question) {
-        return <div {...props}>Q : {props.question}</div>;
-    }
-    if (props.answer) {
-        return <div {...props}>A : {props.answer}</div>;
-    }
-    if (props.context) {
-        return <div {...props}>Context : {props.context}</div>;
-    }
-}
-function EditCard(props: Props) {
-    const RowInlineEdit = withInlineEdit(Row);
 
+function EditCard(props: Props) {
     return (
         <Paper className={styles.wrapper}>
-            <RowInlineEdit question={props.question}></RowInlineEdit>
-            <RowInlineEdit answer={props.answer}></RowInlineEdit>
-            <RowInlineEdit context={props.context}></RowInlineEdit>
+            <div className="flex">
+                <Typography component="div" className="py-2">
+                    Q:
+                </Typography>
+                <EditCardRow content={props.question}></EditCardRow>
+            </div>
+            <div className="flex">
+                <Typography component="div" className="py-2">
+                    A:
+                </Typography>
+                <EditCardRow content={props.answer}></EditCardRow>
+            </div>
+            <div className="flex">
+                <Typography component="div" className="py-2">
+                    Context:
+                </Typography>
+                <EditCardRow content={props.context}></EditCardRow>
+            </div>
         </Paper>
     );
 }
