@@ -5,8 +5,11 @@ import { Button, Fab, IconButton, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import EditCard from '../../components/studydeck/EditCard';
 import Link from 'next/link';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import CheckIcon from '@mui/icons-material/Check';
 import AddIcon from '@mui/icons-material/Add';
+import SaveIcon from '@mui/icons-material/Save';
+import Spinner from '../../components/Spinner';
+
 StudyDeck.propTypes = {};
 
 function StudyDeck(props) {
@@ -48,7 +51,18 @@ function StudyDeck(props) {
                 </div>
             </div>
             <div className="edit-section">
-                <Typography>Edit cards</Typography>
+                <div className="flex">
+                    <Typography component="div" className="mr-1">
+                        Cards
+                    </Typography>
+                    <div className="text-gray-400">
+                        <CheckIcon></CheckIcon>Saved
+                    </div>
+                    <div className="text-gray-400">
+                        <Spinner size={20}></Spinner>
+                        Saving
+                    </div>
+                </div>
                 {cards.map((value) => {
                     return (
                         <EditCard
