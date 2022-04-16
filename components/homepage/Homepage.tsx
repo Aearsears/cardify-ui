@@ -19,8 +19,6 @@ import Emoji from '../Emoji';
 import HPCodeBlock from './HPCodeBlock';
 import Lightning from './Lightning';
 
-//https://codepen.io/SoorajSnBlz/pen/LYZGjBj
-
 function Homepage(props) {
     const { darkMode } = useContext(ColourModeContext);
     return (

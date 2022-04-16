@@ -1,14 +1,15 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styles from './Lightning.module.css';
+import ColourModeContext from '../../styles/ColourModeContext';
 
 Lightning.propTypes = {};
 
-const getRandomInteger = function (min, max) {
+const getRandomInteger = function (min: number, max: number) {
     return Math.floor(getRandomFloat(min, max));
 };
 
-const getRandomFloat = function (min, max) {
+const getRandomFloat = function (min: number, max: number) {
     const random = Math.random() * (max - min + 1) + min;
     return random;
 };
@@ -43,6 +44,7 @@ interface Props {
 }
 function Lightning(props: Props) {
     let ref = useRef<HTMLCanvasElement>();
+    const { darkMode } = useContext(ColourModeContext);
 
     useEffect(() => {
         let canvas = ref.current;
@@ -50,10 +52,11 @@ function Lightning(props: Props) {
         let lightning: Lightning[] = [];
         let requestId: number;
 
-        const lightningStrikeOffset = 5;
+        const lightningStrikeOffset = 10;
         const lightningStrikeLength = 100;
         const lightningBoltLength = 5;
         const lightningThickness = 4;
+        const lightningOpacity = 1;
         const interval = 1000;
 
         const ratio = getPixelRatio(context);
@@ -90,8 +93,12 @@ function Lightning(props: Props) {
             context.moveTo(start.x, start.y);
             context.lineTo(end.x, end.y);
             context.lineWidth = thickness;
-            context.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
-            context.shadowBlur = 30;
+            context.strokeStyle = `${
+                darkMode
+                    ? `rgba(255, 255, 255, ${opacity})`
+                    : `rgba(255, 215, 0, ${opacity})`
+            }`;
+            context.shadowBlur = 20;
             context.shadowColor = '#bd9df2';
             context.stroke();
             context.closePath();
@@ -107,7 +114,7 @@ function Lightning(props: Props) {
                 start: { x: lightningX1, y: 0 },
                 end: { x: lightningX2, y: lightningBoltLength },
                 thickness: lightningThickness,
-                opacity: 1,
+                opacity: lightningOpacity,
                 draw: line
             };
             for (let l = 1; l < lightningStrikeLength; l++) {

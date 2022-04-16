@@ -12,7 +12,7 @@ function EditCardRow(props: Props) {
     const textareaRef = useRef();
     const [task, setTask] = useState(props.content);
     const [description, setDescription] = useState('');
-    const { darkMode, setDarkMode } = useContext(ColourModeContext);
+    const { darkMode } = useContext(ColourModeContext);
 
     return (
         <InlineEdit
