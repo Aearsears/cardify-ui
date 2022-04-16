@@ -34,7 +34,7 @@ function StudyDeck(props) {
         }
     ];
     return (
-        <div>
+        <div className="mt-2">
             <div>
                 <div>
                     <Typography>COMP 250</Typography>

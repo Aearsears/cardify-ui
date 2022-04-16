@@ -13,7 +13,7 @@ type Props = {
 const Layout = ({ children, title = 'This is the default title' }: Props) => (
     <div className="layoutWrapper">
         <MyHeader></MyHeader>
-        <header className="mb-12 pb-12">
+        <header className="pb-12">
             <Navbar></Navbar>
         </header>
         <main className="p-4">{children}</main>

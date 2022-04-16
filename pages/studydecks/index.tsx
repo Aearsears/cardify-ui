@@ -25,7 +25,7 @@ function StudyDecksIndex(props: Props) {
 
     // if (fetching) return <p>Loading...</p>;
     return (
-        <div>
+        <div className="mt-2">
             <Typography>Your Study Decks</Typography>
             <Typography>new study deck</Typography>
             <div className="flex justify-start items-center">

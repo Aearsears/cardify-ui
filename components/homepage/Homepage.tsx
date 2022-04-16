@@ -26,14 +26,14 @@ function Homepage(props) {
     return (
         <div className="block">
             <div className={`${styles.bg} p-4 relative`}>
-                <Typography variant="h2" className="text-center ">
+                <Typography variant="h2" className="text-center mt-2">
                     Turn your notes into study cards in a flash
                 </Typography>
                 <div className="grid grid-flow-row grid-cols-2">
                     <HPAnimation></HPAnimation>
                     <HPCodeBlock></HPCodeBlock>
                 </div>
-                <Lightning className="w-full h-full absolute top-0"></Lightning>
+                <Lightning className="w-full h-full absolute top-0 right-0"></Lightning>
             </div>
             <Divider light variant="middle" />
             <div className={`${styles.section} h-full mt-4 flex items-center`}>

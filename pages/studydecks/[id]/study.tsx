@@ -63,14 +63,14 @@ function Study(props) {
 
     return (
         <div
-            className=" w-full"
+            className="w-full mt-4"
             // The keydown event is fired when a key is pressed down. Unlike the keypress event, the keydown event is fired for keys that produce a character value and for keys that do not produce a character value.
             onKeyDown={(e: React.KeyboardEvent<HTMLElement>) => {
                 handleSpacebar(e);
             }}
             tabIndex={-1}
         >
-            <div className="buttons">
+            <div className="buttons text-right">
                 <Button
                     variant="contained"
                     color="secondary"

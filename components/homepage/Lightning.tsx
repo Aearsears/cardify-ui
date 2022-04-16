@@ -13,6 +13,19 @@ const getRandomFloat = function (min, max) {
     return random;
 };
 
+const getPixelRatio = (context) => {
+    let backingStore =
+        context.backingStorePixelRatio ||
+        context.webkitBackingStorePixelRatio ||
+        context.mozBackingStorePixelRatio ||
+        context.msBackingStorePixelRatio ||
+        context.oBackingStorePixelRatio ||
+        context.backingStorePixelRatio ||
+        1;
+
+    return (window.devicePixelRatio || 1) / backingStore;
+};
+
 interface Lightning {
     start: { x: number; y: number };
     end: { x: number; y: number };
@@ -35,13 +48,23 @@ function Lightning(props: Props) {
         let canvas = ref.current;
         let context = canvas.getContext('2d');
         let lightning: Lightning[] = [];
+        let requestId: number;
+
         const lightningStrikeOffset = 5;
         const lightningStrikeLength = 100;
         const lightningBoltLength = 5;
         const lightningThickness = 4;
         const interval = 1000;
-        const canvasHeight = 500;
-        const canvasWidth = 500;
+
+        const ratio = getPixelRatio(context);
+        let width = getComputedStyle(canvas)
+            .getPropertyValue('width')
+            .slice(0, -2);
+        let height = getComputedStyle(canvas)
+            .getPropertyValue('height')
+            .slice(0, -2);
+        canvas.width = Number(width) * ratio;
+        canvas.height = Number(height) * ratio;
 
         const clearCanvas = function (
             x?: number,
@@ -51,8 +74,8 @@ function Lightning(props: Props) {
         ) {
             let rectX = x || 0;
             let rectY = y || 0;
-            let rectHeight = height || canvasHeight;
-            let rectWidth = width || canvasWidth;
+            let rectHeight = height || canvas.height;
+            let rectWidth = width || canvas.width;
             context.clearRect(rectX, rectY, rectWidth, rectHeight);
             context.beginPath();
         };
@@ -75,7 +98,7 @@ function Lightning(props: Props) {
         };
         const createLightning = function () {
             lightning = [];
-            let lightningX1 = getRandomInteger(2, canvasWidth - 2);
+            let lightningX1 = getRandomInteger(2, canvas.width - 2);
             let lightningX2 = getRandomInteger(
                 lightningX1 - lightningStrikeOffset,
                 lightningX1 + lightningStrikeOffset
@@ -128,7 +151,7 @@ function Lightning(props: Props) {
                 l.draw(l.start, l.end, l.thickness, l.opacity);
             }
 
-            requestAnimationFrame(animate);
+            requestId = requestAnimationFrame(animate);
         };
 
         setup();
@@ -136,6 +159,10 @@ function Lightning(props: Props) {
         setInterval(function () {
             createLightning();
         }, interval);
+
+        return () => {
+            cancelAnimationFrame(requestId);
+        };
     });
     return (
         <canvas
