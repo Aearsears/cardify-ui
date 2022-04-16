@@ -17,3 +17,10 @@
     -webkit-transform: skew(-10deg);
     transform: skew(-10deg);
 }
+#canvas {
+    border: 1px solid white;
+    background-color: transparent;
+    z-index: 10;
+    height: 200px;
+    width: 200px;
+}
