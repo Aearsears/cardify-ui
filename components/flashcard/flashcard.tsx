@@ -11,34 +11,35 @@ interface Props {
     context?: string;
     clickHandler?: (event: React.MouseEvent<HTMLElement>) => void;
     flipped?: boolean;
+    height?: number;
+    width?: number;
 }
 
-const innerCard = (
-    text: string,
-    handleClick: (event: React.MouseEvent<HTMLElement>) => void,
-    width: number = 300,
-    height: number = 300,
-    context?: string
-) => (
-    <Box sx={{ width: width, height: height }}>
-        <Card variant="elevation" className="w-full h-full">
-            <CardActionArea onClick={handleClick} className="h-full w-full">
-                <CardContent>
-                    <Typography variant="h5" component="div">
-                        {text}
-                    </Typography>
-                    {context ? (
-                        <Typography variant="h6" component="div">
-                            {context}
-                        </Typography>
-                    ) : null}
-                </CardContent>
-            </CardActionArea>
-        </Card>
-    </Box>
-);
-
 function Flashcard(props: Props) {
+    const innerCard = (
+        text: string,
+        handleClick: (event: React.MouseEvent<HTMLElement>) => void,
+        width: number = props.width || 300,
+        height: number = props.height || 300,
+        context?: string
+    ) => (
+        <Box sx={{ width: width, height: height }}>
+            <Card variant="elevation" className="w-full h-full">
+                <CardActionArea onClick={handleClick} className="h-full w-full">
+                    <CardContent>
+                        <Typography variant="h5" component="div">
+                            {text}
+                        </Typography>
+                        {context ? (
+                            <Typography variant="h6" component="div">
+                                {context}
+                            </Typography>
+                        ) : null}
+                    </CardContent>
+                </CardActionArea>
+            </Card>
+        </Box>
+    );
     return (
         <ReactCardFlip
             isFlipped={props.flipped}

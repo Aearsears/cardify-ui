@@ -57,7 +57,7 @@ function Lightning(props: Props) {
         const lightningBoltLength = 5;
         const lightningThickness = 4;
         const lightningOpacity = 1;
-        const interval = 1000;
+        const interval = 5000;
 
         const ratio = getPixelRatio(context);
         let width = getComputedStyle(canvas)

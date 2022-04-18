@@ -23,10 +23,13 @@ function Homepage(props) {
     const { darkMode } = useContext(ColourModeContext);
     return (
         <div className="block">
-            <div className={`${styles.bg} p-4 relative`}>
-                <Typography variant="h2" className="text-center mt-2">
-                    Turn your notes into study cards in a flash
-                </Typography>
+            <div className={`${styles.bg} p-4 relative h-96`}>
+                <div className="mb-4">
+                    <Typography variant="h2" className="text-center">
+                        Turn your notes into study cards in a flash
+                        <Emoji label="lightning" symbol="⚡"></Emoji>
+                    </Typography>
+                </div>
                 <div className="grid grid-flow-row grid-cols-2">
                     <HPAnimation></HPAnimation>
                     <HPCodeBlock></HPCodeBlock>
