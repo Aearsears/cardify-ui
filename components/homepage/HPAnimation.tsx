@@ -81,7 +81,7 @@ function HPAnimation(props) {
                 ) : null}
                 {showStep2 ? <Spinner size={50}></Spinner> : null}
                 {!showStep2 && !showStep3 ? (
-                    <code className="bg-gray-300">
+                    <code>
                         <TypeIt
                             getBeforeInit={(instance) => {
                                 instance
