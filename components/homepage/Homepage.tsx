@@ -66,7 +66,7 @@ function Homepage(props) {
                             Proven results. Great satification.
                         </Typography>
                         <Typography variant="h6" className="text-center">
-                            Get the results you want. <br></br>Flashcard will
+                            Get the results you want. <br></br>Flashcards will
                             help you retain up to 75% more information.
                         </Typography>
                     </div>
@@ -85,7 +85,7 @@ function Homepage(props) {
             <div className="h-full p-4">
                 <div className="container mr-auto ml-auto">
                     <div className="text">
-                        <Typography variant="h3" className="text-center">
+                        <Typography variant="h2" className="text-center">
                             Cardify's ecosystem synergizes well with students
                             and professors alike.
                         </Typography>
@@ -96,7 +96,11 @@ function Homepage(props) {
                                 sx={{ fontSize: 350 }}
                                 color="secondary"
                             ></BoltSharpIcon>
-                            <Typography className="text-center" component="div">
+                            <Typography
+                                className="text-center"
+                                component="div"
+                                variant="body1"
+                            >
                                 Lightning fast creation of flash card so you are
                                 up and running in seconds.
                             </Typography>
@@ -106,7 +110,11 @@ function Homepage(props) {
                                 sx={{ fontSize: 350 }}
                                 color="secondary"
                             ></BorderColorSharpIcon>
-                            <Typography className="text-center" component="div">
+                            <Typography
+                                className="text-center"
+                                component="div"
+                                variant="body1"
+                            >
                                 Focus on taking high quality notes.
                             </Typography>
                         </div>
@@ -115,7 +123,11 @@ function Homepage(props) {
                                 sx={{ fontSize: 350 }}
                                 color="secondary"
                             ></SettingsSharpIcon>
-                            <Typography className="text-center" component="div">
+                            <Typography
+                                className="text-center"
+                                component="div"
+                                variant="body1"
+                            >
                                 Easy setup and supports multiple study decks.
                             </Typography>
                         </div>
