@@ -23,7 +23,7 @@ function Homepage(props) {
     const { darkMode } = useContext(ColourModeContext);
     return (
         <div className="block">
-            <div className={`${styles.bg} p-4 relative`}>
+            <div className={`p-4 relative`}>
                 <div className="container mr-auto ml-auto">
                     <div className="mb-4">
                         <Typography variant="h2" className="text-center">
@@ -39,7 +39,7 @@ function Homepage(props) {
                 </div>
             </div>
             <Divider light variant="middle" />
-            <div className={`${styles.section} h-full p-4`}>
+            <div className={`h-full p-4`}>
                 <div className="container mr-auto ml-auto">
                     <div className="w-6/12 h-6/12 inline-block float-none align-middle">
                         <Image
@@ -59,7 +59,7 @@ function Homepage(props) {
                 </div>
             </div>
             <Divider light variant="middle" />
-            <div className={`${styles.section} h-full p-4`}>
+            <div className={`h-full p-4`}>
                 <div className="container mr-auto ml-auto">
                     <div className="text w-6/12 h-6/12 inline-block float-none align-middle">
                         <Typography variant="h2" className="text-center">
@@ -123,7 +123,7 @@ function Homepage(props) {
                 </div>
             </div>
             <Divider light variant="middle" />
-            <div className={`${styles.section} h-full p-4`}>
+            <div className={`h-full p-4`}>
                 <div className="container mr-auto ml-auto">
                     <div className="text">
                         <Typography variant="h3" className="text-center">
