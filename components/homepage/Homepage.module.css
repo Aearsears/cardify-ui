@@ -17,3 +17,20 @@
     -webkit-transform: skew(-10deg);
     transform: skew(-10deg);
 }
+/* .section1::before,
+.section1::after {
+    border-bottom: 10vh solid #ff0000;
+    border-left: 100vw solid transparent;
+    bottom: 100%;
+    content: 'test';
+    display: block;
+    height: 0;
+    left: 0;
+    position: relative;
+    right: 0;
+    width: 0;
+} */
+.container {
+    margin-right: auto;
+    margin-left: auto;
+}
