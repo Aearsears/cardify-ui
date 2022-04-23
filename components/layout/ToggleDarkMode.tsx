@@ -48,8 +48,12 @@ const ToggleDarkModeButton = () => {
                     display: { xs: 'flex', md: 'none' }
                 }}
             >
-                <Button onClick={() => setDarkMode(!darkMode)} color="inherit">
-                    <Typography textAlign="center">Toggle dark mode</Typography>
+                <Button
+                    onClick={() => setDarkMode(!darkMode)}
+                    color="inherit"
+                    style={{ textTransform: 'none', padding: 0 }}
+                >
+                    <Typography textAlign="left">Toggle dark mode</Typography>
                 </Button>
             </Box>
         </Box>

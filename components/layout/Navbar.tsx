@@ -107,9 +107,7 @@ function Navbar(props) {
                                 </Link>
                             ))}{' '}
                             <MenuItem>
-                                <Box>
-                                    <ToggleDarkModeButton></ToggleDarkModeButton>
-                                </Box>
+                                <ToggleDarkModeButton></ToggleDarkModeButton>
                             </MenuItem>
                         </Menu>
                     </Box>
@@ -142,6 +140,7 @@ function Navbar(props) {
                                         display: 'block'
                                     }}
                                     color="inherit"
+                                    style={{ textTransform: 'none' }}
                                 >
                                     <Typography>{page[0]}</Typography>
                                 </Button>
