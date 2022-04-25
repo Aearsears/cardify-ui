@@ -1,4 +1,4 @@
-import { Fab, Typography } from '@mui/material';
+import { Button, Fab, Typography } from '@mui/material';
 import * as React from 'react';
 import { useQuery } from 'urql';
 import Flashcard from '../../components/flashcard/Flashcard';
@@ -28,16 +28,20 @@ function StudyDecksIndex(props: Props) {
     return (
         <div className="mt-2">
             <Typography>Your Study Decks</Typography>
-            <Typography>new study deck</Typography>
-            <div className="flex justify-start items-center">
+            <Button variant="contained" style={{ textTransform: 'none' }}>
+                New study deck
+            </Button>
+            <div className="flex justify-center items-center">
                 <StudyDeck studyDeckID={1}>
                     <div className="flex justify-center items-center h-full cursor-pointer">
                         <Typography className="">COMP 250</Typography>
                     </div>
                 </StudyDeck>
-                <Fab color="primary" aria-label="add">
-                    <AddIcon />
-                </Fab>
+                <StudyDeck studyDeckID={1}>
+                    <div className="flex justify-center items-center h-full cursor-pointer">
+                        <Typography className="">COMP 250</Typography>
+                    </div>
+                </StudyDeck>
             </div>
             {/* <div>
                 {error
