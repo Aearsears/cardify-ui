@@ -1,8 +1,9 @@
-import { Typography } from '@mui/material';
+import { Fab, Typography } from '@mui/material';
 import * as React from 'react';
 import { useQuery } from 'urql';
 import Flashcard from '../../components/flashcard/Flashcard';
 import StudyDeck from '../../components/studydeck/StudyDeck';
+import AddIcon from '@mui/icons-material/Add';
 
 type Props = {};
 const CardsQuery = `query{
@@ -34,6 +35,9 @@ function StudyDecksIndex(props: Props) {
                         <Typography className="">COMP 250</Typography>
                     </div>
                 </StudyDeck>
+                <Fab color="primary" aria-label="add">
+                    <AddIcon />
+                </Fab>
             </div>
             {/* <div>
                 {error

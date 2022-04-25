@@ -9,6 +9,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import AddIcon from '@mui/icons-material/Add';
 import SaveIcon from '@mui/icons-material/Save';
 import Spinner from '../../components/Spinner';
+import AddCardsButton from '../../components/studydeck/AddCardsButton';
 
 StudyDeck.propTypes = {};
 
@@ -74,9 +75,7 @@ function StudyDeck(props) {
                 })}
             </div>
             <div className="text-center">
-                <Fab color="primary" aria-label="add">
-                    <AddIcon />
-                </Fab>
+                <AddCardsButton></AddCardsButton>
             </div>
         </div>
     );
