@@ -10,6 +10,12 @@ import results_dark from '../../public/homepage/results_dark.png';
 import results_light from '../../public/homepage/results_light.png';
 import exam_dark from '../../public/homepage/exam_dark.png';
 import exam_light from '../../public/homepage/exam_light.png';
+import finish_line_dark from '../../public/homepage/finish_line_dark.png';
+import finish_line_light from '../../public/homepage/finish_line_light.png';
+import setup_dark from '../../public/homepage/setup_dark.png';
+import setup_light from '../../public/homepage/setup_light.png';
+import notes_dark from '../../public/homepage/notes_dark.png';
+import notes_light from '../../public/homepage/notes_light.png';
 
 import BoltSharpIcon from '@mui/icons-material/BoltSharp';
 import BorderColorSharpIcon from '@mui/icons-material/BorderColorSharp';
@@ -91,11 +97,18 @@ function Homepage(props) {
                         </Typography>
                     </div>
                     <div className="flex items-center">
-                        <div className="w-6/12 h-6/12 flex items-center justify-center flex-wrap flex-row">
-                            <BoltSharpIcon
-                                sx={{ fontSize: 350 }}
-                                color="secondary"
-                            ></BoltSharpIcon>
+                        <div className="w-6/12 m-1 flex items-center justify-center flex-wrap flex-row">
+                            <Image
+                                src={
+                                    darkMode
+                                        ? finish_line_dark
+                                        : finish_line_light
+                                }
+                                height="892"
+                                width="1340"
+                                placeholder="blur"
+                                className="rounded-full"
+                            ></Image>
                             <Typography
                                 className="text-center"
                                 component="div"
@@ -105,11 +118,14 @@ function Homepage(props) {
                                 up and running in seconds.
                             </Typography>
                         </div>
-                        <div className="w-6/12 h-6/12 flex items-center justify-center flex-wrap flex-row">
-                            <BorderColorSharpIcon
-                                sx={{ fontSize: 350 }}
-                                color="secondary"
-                            ></BorderColorSharpIcon>
+                        <div className="w-6/12 m-1 flex items-center justify-center flex-wrap flex-row">
+                            <Image
+                                src={darkMode ? notes_dark : notes_light}
+                                height="622"
+                                width="976"
+                                placeholder="blur"
+                                className="rounded-full"
+                            ></Image>
                             <Typography
                                 className="text-center"
                                 component="div"
@@ -118,11 +134,14 @@ function Homepage(props) {
                                 Focus on taking high quality notes.
                             </Typography>
                         </div>
-                        <div className="w-6/12 h-6/12 flex items-center justify-center flex-wrap flex-row">
-                            <SettingsSharpIcon
-                                sx={{ fontSize: 350 }}
-                                color="secondary"
-                            ></SettingsSharpIcon>
+                        <div className="w-6/12 m-1 flex items-center justify-center flex-wrap flex-row">
+                            <Image
+                                src={darkMode ? setup_dark : setup_light}
+                                height="746"
+                                width="1138"
+                                placeholder="blur"
+                                className="rounded-full"
+                            ></Image>
                             <Typography
                                 className="text-center"
                                 component="div"
