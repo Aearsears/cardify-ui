@@ -25,7 +25,9 @@ export default function AccountMenu() {
     return (
         <React.Fragment>
             <Tooltip title="Add cards">
-                <IconButton
+                <Fab
+                    color="primary"
+                    aria-label="add"
                     onClick={handleClick}
                     size="medium"
                     sx={{ ml: 2 }}
@@ -33,10 +35,8 @@ export default function AccountMenu() {
                     aria-haspopup="true"
                     aria-expanded={open ? 'true' : undefined}
                 >
-                    <Fab color="primary" aria-label="add">
-                        <AddIcon />
-                    </Fab>
-                </IconButton>
+                    <AddIcon />
+                </Fab>
             </Tooltip>
             <Menu
                 anchorEl={anchorEl}

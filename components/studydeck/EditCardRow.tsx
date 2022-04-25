@@ -1,10 +1,11 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { SetStateAction, useContext, useRef, useState } from 'react';
 import ColourModeContext from '../../styles/ColourModeContext';
 import InlineEdit from './InlineEdit';
 
 interface Props {
     content: string;
     className?: string;
+    setSaving?: React.Dispatch<SetStateAction<boolean>>;
 }
 
 function EditCardRow(props: Props) {
@@ -18,9 +19,11 @@ function EditCardRow(props: Props) {
         <InlineEdit
             text={task}
             placeholder="Write a task name"
+            setSaving={props.setSaving}
             childRef={inputRef}
             type="input"
             className={props.className}
+            tabIndex={0}
         >
             <input
                 ref={inputRef}

@@ -5,6 +5,7 @@ const InlineEdit = ({
     text,
     type,
     placeholder,
+    setSaving,
     children,
     childRef,
     ...props
@@ -16,10 +17,13 @@ const InlineEdit = ({
     useEffect(() => {
         if (childRef && childRef.current && isEditing === true) {
             childRef.current.focus();
+            console.log('in use effect');
         }
     }, [isEditing, childRef]);
 
     const handleKeyDown = (event, type) => {
+        console.log(event);
+        console.log(type);
         const { key } = event;
         const keys = ['Escape', 'Tab'];
         const enterKey = 'Enter';
@@ -29,6 +33,11 @@ const InlineEdit = ({
             (type !== 'textarea' && allKeys.indexOf(key) > -1)
         ) {
             setEditing(false);
+            setSaving(true);
+            //call api
+            setTimeout(() => {
+                setSaving(false);
+            }, 5000);
         }
     };
 

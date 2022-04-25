@@ -6,8 +6,6 @@ import { useRouter } from 'next/router';
 import EditCard from '../../components/studydeck/EditCard';
 import Link from 'next/link';
 import CheckIcon from '@mui/icons-material/Check';
-import AddIcon from '@mui/icons-material/Add';
-import SaveIcon from '@mui/icons-material/Save';
 import Spinner from '../../components/Spinner';
 import AddCardsButton from '../../components/studydeck/AddCardsButton';
 
@@ -15,6 +13,7 @@ StudyDeck.propTypes = {};
 
 function StudyDeck(props) {
     const router = useRouter();
+    const [isSaving, setSaving] = useState(false);
     const { id } = router.query;
     // get deck info from backend api
     const cards: Card[] = [
@@ -56,12 +55,17 @@ function StudyDeck(props) {
                     <Typography component="div" className="mr-1">
                         Cards
                     </Typography>
-                    <div className="text-gray-400">
-                        <CheckIcon></CheckIcon>Saved
-                    </div>
-                    <div className="text-gray-400">
-                        <Spinner size={20}></Spinner>
-                        Saving
+                    <div className="text-gray-400 ml-1">
+                        {isSaving ? (
+                            <span>
+                                <Spinner size={20}></Spinner>Saving
+                            </span>
+                        ) : (
+                            <span>
+                                <CheckIcon></CheckIcon>
+                                Saved
+                            </span>
+                        )}
                     </div>
                 </div>
                 {cards.map((value) => {
@@ -70,6 +74,7 @@ function StudyDeck(props) {
                             answer={value.answer}
                             question={value.question}
                             context={value.context}
+                            setSaving={setSaving}
                         ></EditCard>
                     );
                 })}

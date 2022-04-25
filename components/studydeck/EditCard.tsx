@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { SetStateAction } from 'react';
 import PropTypes from 'prop-types';
 import styles from './EditCard.module.css';
 import { Paper, Typography } from '@mui/material';
@@ -9,6 +9,7 @@ interface Props {
     question?: string;
     answer?: string;
     context?: string;
+    setSaving?: React.Dispatch<SetStateAction<boolean>>;
 }
 
 function EditCard(props: Props) {
@@ -21,6 +22,7 @@ function EditCard(props: Props) {
                 <EditCardRow
                     content={props.question}
                     className="grow"
+                    setSaving={props.setSaving}
                 ></EditCardRow>
             </div>
             <div className="flex">
@@ -30,6 +32,7 @@ function EditCard(props: Props) {
                 <EditCardRow
                     content={props.answer}
                     className="grow"
+                    setSaving={props.setSaving}
                 ></EditCardRow>
             </div>
             <div className="flex">
@@ -39,6 +42,7 @@ function EditCard(props: Props) {
                 <EditCardRow
                     content={props.context}
                     className="grow"
+                    setSaving={props.setSaving}
                 ></EditCardRow>
             </div>
         </Paper>
