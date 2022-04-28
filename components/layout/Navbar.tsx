@@ -95,7 +95,11 @@ function Navbar(props) {
                             }}
                         >
                             {pages.map((page) => (
-                                <Link href={'/' + page[1]} passHref>
+                                <Link
+                                    href={'/' + page[1]}
+                                    key={page[0]}
+                                    passHref
+                                >
                                     <MenuItem
                                         key={page[0]}
                                         onClick={handleCloseNavMenu}
@@ -131,7 +135,7 @@ function Navbar(props) {
                         }}
                     >
                         {pages.map((page) => (
-                            <Link href={'/' + page[1]}>
+                            <Link key={page[0]} href={'/' + page[1]}>
                                 <Button
                                     key={page[1]}
                                     onClick={handleCloseNavMenu}
