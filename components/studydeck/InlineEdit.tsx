@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-import useSWR from 'swr';
 import ColourModeContext from '../../styles/ColourModeContext';
 
 const InlineEdit = ({
@@ -14,24 +13,15 @@ const InlineEdit = ({
     const [isEditing, setEditing] = useState(false);
 
     const { darkMode } = useContext(ColourModeContext);
-    const fetcher = (url) => fetch(url).then((res) => res.json());
-    //call api
-    const { data, error } = useSWR('/api/users', fetcher);
-    if (!data) {
-        console.log('there is no data.');
-
-        setSaving(false);
-    } else {
-        console.log('there is data.');
-        setSaving(true);
-    }
-
     useEffect(() => {
         if (childRef && childRef.current && isEditing === true) {
             childRef.current.focus();
             console.log('in use effect');
         }
         setSaving(true);
+        setTimeout(() => {
+            setSaving(false);
+        }, 2000);
     }, [isEditing, childRef]);
 
     const handleKeyDown = (event, type) => {

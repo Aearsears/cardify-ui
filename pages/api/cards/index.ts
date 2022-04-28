@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { setTimeout } from 'timers/promises';
-import { sampleUserData } from '../../../utils/sample-data';
+import { sampleCardData } from '../../../utils/sample-data';
 
 interface QA {
     Answer: string;
@@ -8,9 +7,13 @@ interface QA {
     context: string;
     id: number;
 }
-
+const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 const handler = (_req: NextApiRequest, res: NextApiResponse) => {
-    /*  
+    if (_req.method === 'POST') {
+        delay(5000);
+        res.status(200).json({ status: 'updated' });
+    } else {
+        /*  
    # takes in JSON of {"text": "this is that. that is this.", "max_questions":int} 
     [{'Answer': 'cricketer',
                'Question': "What is Sachin Ramesh Tendulkar's career?",
@@ -19,14 +22,16 @@ const handler = (_req: NextApiRequest, res: NextApiResponse) => {
                           'Indian national team.',
                'id': 1},
 ] 
-    */ try {
-        if (!Array.isArray(sampleUserData)) {
-            throw new Error('Cannot find user data');
+    
+    */
+        try {
+            if (!Array.isArray(sampleCardData)) {
+                throw new Error('Cannot find user data');
+            }
+            res.status(200).json(sampleCardData);
+        } catch (err: any) {
+            res.status(500).json({ statusCode: 500, message: err.message });
         }
-        setTimeout(2000);
-        res.status(200).json(sampleUserData);
-    } catch (err: any) {
-        res.status(500).json({ statusCode: 500, message: err.message });
     }
 };
 

@@ -12,4 +12,5 @@ export interface Card {
     question: string;
     answer: string;
     context: string;
+    id?: number;
 }
