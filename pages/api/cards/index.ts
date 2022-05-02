@@ -7,11 +7,9 @@ interface QA {
     context: string;
     id: number;
 }
-const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 const handler = (_req: NextApiRequest, res: NextApiResponse) => {
     if (_req.method === 'POST') {
-        delay(10000);
-        res.status(200).json({ status: 'updated' });
+        setTimeout(() => res.status(200).json({ status: 'updated' }), 5000);
     } else {
         /*  
    # takes in JSON of {"text": "this is that. that is this.", "max_questions":int} 

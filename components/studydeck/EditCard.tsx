@@ -1,11 +1,11 @@
-import React, { SetStateAction, useState } from 'react';
+import React, { SetStateAction, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from './EditCard.module.css';
 import { Paper, Typography } from '@mui/material';
 import EditCardRow from './EditCardRow';
 import CheckIcon from '@mui/icons-material/Check';
 import Spinner from '../Spinner';
-import InlineEdit from './InlineEdit2';
+import InlineEdit from './InlineEdit';
 EditCard.propTypes = {};
 
 interface Props {
@@ -16,22 +16,33 @@ interface Props {
 
 function EditCard(props: Props) {
     const [isSaving, setSaving] = useState(false);
+    const [hasSavedOnce, setHasSavedOnce] = useState(false);
     const [answer, setAnswer] = useState(props.answer);
     const [question, setQuestion] = useState(props.question);
     const [context, setContext] = useState(props.context);
+    const mountedRef = useRef(null);
+
+    useEffect(() => {
+        if (isSaving) {
+            setHasSavedOnce(true);
+        }
+    }, [isSaving]);
+
     return (
-        <Paper className={styles.wrapper}>
+        <Paper className={styles.wrapper} ref={mountedRef}>
             <div className="text-gray-400 ml-1">
-                {isSaving ? (
-                    <span>
-                        <Spinner size={20}></Spinner>Saving
-                    </span>
-                ) : (
-                    <span>
-                        <CheckIcon></CheckIcon>
-                        Saved
-                    </span>
-                )}
+                {hasSavedOnce ? (
+                    isSaving ? (
+                        <span>
+                            <Spinner size={20}></Spinner>Saving
+                        </span>
+                    ) : (
+                        <span>
+                            <CheckIcon></CheckIcon>
+                            Saved
+                        </span>
+                    )
+                ) : null}
             </div>
             <div className="flex">
                 <Typography component="div" className="py-2">
