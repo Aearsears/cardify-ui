@@ -5,6 +5,7 @@ const InlineEdit2 = ({ value, setValue, setSaving }) => {
     const { darkMode } = useContext(ColourModeContext);
 
     const [editingValue, setEditingValue] = useState(value);
+    const [focus, setFocus] = useState(false);
 
     const onChange = (event) => setEditingValue(event.target.value);
 
@@ -28,6 +29,10 @@ const InlineEdit2 = ({ value, setValue, setSaving }) => {
                     setSaving(false);
                 });
         }
+        setFocus(!focus);
+    };
+    const onFocus = (event) => {
+        setFocus(!focus);
     };
 
     return (
@@ -38,11 +43,18 @@ const InlineEdit2 = ({ value, setValue, setSaving }) => {
             onChange={onChange}
             onKeyDown={onKeyDown}
             onBlur={onBlur}
-            className={`shadow appearance-none border rounded w-full py-2 px-3 ${
+            onFocus={onFocus}
+            className={`appearance-none rounded w-full py-2 px-2 ${
                 darkMode ? 'text-white' : 'text-black'
-            }text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                darkMode ? 'border-gray-30' : 'border-blue-30'
-            } ${darkMode ? 'bg-gray-500' : 'bg-white'}`}
+            } leading-tight focus:outline-none focus:shadow-outline ${
+                !darkMode && focus
+                    ? ' bg-slate-200 border-blue-30 border'
+                    : 'border-blue-30'
+            } ${
+                darkMode && focus
+                    ? 'bg-gray-500 border-gray-30 border'
+                    : 'bg-transparent'
+            }`}
         />
     );
 };

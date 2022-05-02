@@ -10,7 +10,7 @@ interface QA {
 const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 const handler = (_req: NextApiRequest, res: NextApiResponse) => {
     if (_req.method === 'POST') {
-        delay(5000);
+        delay(10000);
         res.status(200).json({ status: 'updated' });
     } else {
         /*  
