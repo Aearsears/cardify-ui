@@ -5,7 +5,7 @@ import { Paper, Typography } from '@mui/material';
 import EditCardRow from './EditCardRow';
 import CheckIcon from '@mui/icons-material/Check';
 import Spinner from '../Spinner';
-import InlineEdit2 from './InlineEdit2';
+import InlineEdit from './InlineEdit2';
 EditCard.propTypes = {};
 
 interface Props {
@@ -37,31 +37,31 @@ function EditCard(props: Props) {
                 <Typography component="div" className="py-2">
                     Q:
                 </Typography>
-                <InlineEdit2
+                <InlineEdit
                     value={question}
                     setValue={setQuestion}
                     setSaving={setSaving}
-                ></InlineEdit2>
+                ></InlineEdit>
             </div>
             <div className="flex">
                 <Typography component="div" className="py-2">
                     A:
                 </Typography>
-                <InlineEdit2
+                <InlineEdit
                     value={answer}
                     setValue={setAnswer}
                     setSaving={setSaving}
-                ></InlineEdit2>
+                ></InlineEdit>
             </div>
             <div className="flex">
                 <Typography component="div" className="py-2">
                     Context:
                 </Typography>
-                <InlineEdit2
+                <InlineEdit
                     value={context}
                     setValue={setContext}
                     setSaving={setSaving}
-                ></InlineEdit2>
+                ></InlineEdit>
             </div>
         </Paper>
     );

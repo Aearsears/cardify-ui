@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import ColourModeContext from '../../styles/ColourModeContext';
 
-const InlineEdit2 = ({ value, setValue, setSaving }) => {
+const InlineEdit = ({ value, setValue, setSaving }) => {
     const { darkMode } = useContext(ColourModeContext);
 
     const [editingValue, setEditingValue] = useState(value);
@@ -59,4 +59,4 @@ const InlineEdit2 = ({ value, setValue, setSaving }) => {
     );
 };
 
-export default InlineEdit2;
+export default InlineEdit;
