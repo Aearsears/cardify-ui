@@ -1,9 +1,7 @@
 import { Button, Fab, Typography } from '@mui/material';
 import * as React from 'react';
-import { useQuery } from 'urql';
-import Flashcard from '../../components/flashcard/Flashcard';
+import { useMutation, useQuery } from 'urql';
 import StudyDeck from '../../components/studydeck/StudyDeck';
-import AddIcon from '@mui/icons-material/Add';
 
 type Props = {};
 const CardsQuery = `query{
@@ -18,6 +16,19 @@ const CardsQuery = `query{
     }
  
 }`;
+const QuestionCreate = `
+mutation createq{
+  questionCreate(input:{questionText:"first question",createdDate:"2022-05-03T21:18:25+00:00"}){
+    ok
+    errors{
+      messages
+    }
+    result{
+      id
+    }
+  }
+}
+`;
 function StudyDecksIndex(props: Props) {
     // const [result, reexecuteQuery] = useQuery({
     //     query: CardsQuery
@@ -25,6 +36,14 @@ function StudyDecksIndex(props: Props) {
     // const { data, fetching, error } = result;
 
     // if (fetching) return <p>Loading...</p>;
+    const [addquestionresult, addQuestion] = useMutation(QuestionCreate);
+    addQuestion().then((res) => {
+        if (res.error) {
+            console.error('Oh no!', res.error);
+        }
+        console.log(res);
+        return;
+    });
     return (
         <div className="mt-2">
             <Typography>Your Study Decks</Typography>

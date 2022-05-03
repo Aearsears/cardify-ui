@@ -1,36 +1,64 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Card } from '../../interfaces';
 import { Button, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import EditCard from '../../components/studydeck/EditCard';
 import Link from 'next/link';
 import Spinner from '../../components/Spinner';
 import AddCardsButton from '../../components/studydeck/AddCardsButton';
-import useSWR, { Fetcher } from 'swr';
+import { useMutation, useQuery } from 'urql';
 
 StudyDeck.propTypes = {};
+
+const CardsQuery = `
+query deckcards($id: ID) {
+  deck(where: {id: {exact: $id}}) {
+    cardSet {
+      edges {
+        node {
+          answer {
+            answerText
+          }
+          question {
+            questionText
+          }
+        }
+      }
+    }
+  }
+}
+`;
 
 function StudyDeck(props) {
     const router = useRouter();
     const { id } = router.query;
+    console.log(id);
     // get deck info from backend api
-    const fetcher: Fetcher<Card[], string> = (url: string) =>
-        fetch(url).then((res) => res.json());
-    const { data, error } = useSWR('/api/cards', fetcher);
-    if (!data) {
+    const [result, reexecuteQuery] = useQuery({
+        query: CardsQuery,
+        variables: { id }
+    });
+    const { data, fetching, error } = result;
+
+    if (fetching) {
         return <Spinner size={20}></Spinner>;
     }
     if (error) {
+        console.log(error);
+
         return <div>There was an error.</div>;
     }
+    if (data.length == 0) {
+        return <div>No data.</div>;
+    }
+    console.log(data);
     return (
         <div className="mt-2">
             <div>
                 <div>
                     <Typography>COMP 250</Typography>
                     <Typography variant="subtitle1">
-                        {data.length} cards
+                        {data.deck.cardSet.edges.length} cards
                     </Typography>
                 </div>
                 <div className="text-right">
@@ -47,12 +75,11 @@ function StudyDeck(props) {
                         Cards
                     </Typography>
                 </div>
-                {data.map((value) => {
+                {data.deck.cardSet.edges.map((i) => {
                     return (
                         <EditCard
-                            answer={value.answer}
-                            question={value.question}
-                            context={value.context}
+                            answer={i.node.answer.answerText}
+                            question={i.node.question.questionText}
                         ></EditCard>
                     );
                 })}

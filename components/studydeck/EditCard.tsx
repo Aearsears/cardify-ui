@@ -2,7 +2,6 @@ import React, { SetStateAction, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from './EditCard.module.css';
 import { Paper, Typography } from '@mui/material';
-import EditCardRow from './EditCardRow';
 import CheckIcon from '@mui/icons-material/Check';
 import Spinner from '../Spinner';
 import InlineEdit from './InlineEdit';
