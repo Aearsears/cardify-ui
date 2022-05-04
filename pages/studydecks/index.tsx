@@ -36,14 +36,14 @@ function StudyDecksIndex(props: Props) {
     // const { data, fetching, error } = result;
 
     // if (fetching) return <p>Loading...</p>;
-    const [addquestionresult, addQuestion] = useMutation(QuestionCreate);
-    addQuestion().then((res) => {
-        if (res.error) {
-            console.error('Oh no!', res.error);
-        }
-        console.log(res);
-        return;
-    });
+    // const [addquestionresult, addQuestion] = useMutation(QuestionCreate);
+    // addQuestion().then((res) => {
+    //     if (res.error) {
+    //         console.error('Oh no!', res.error);
+    //     }
+    //     console.log(res);
+    //     return;
+    // });
     return (
         <div className="mt-2">
             <Typography>Your Study Decks</Typography>

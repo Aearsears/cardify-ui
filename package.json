@@ -1,5 +1,8 @@
 {
     "private": true,
+    "cacheDirectories": [
+        ".next/cache"
+    ],
     "scripts": {
         "dev": "next",
         "build": "next build",
