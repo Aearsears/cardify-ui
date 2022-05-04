@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material';
 import React, { useState } from 'react';
 import TypeIt, { TypeItProps } from 'typeit-react';
-import Flashcard from '../flashcard/Flashcard';
+import Flashcard from '../flashcard/tempfix';
 import Spinner from '../Spinner';
 
 function HPAnimation(props) {

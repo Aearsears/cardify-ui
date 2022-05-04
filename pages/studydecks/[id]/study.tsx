@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, IconButton } from '@mui/material';
-import Flashcard from '../../../components/flashcard/Flashcard';
+import Flashcard from '../../../components/flashcard/Tempfix';
 import { Card } from '../../../interfaces';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
