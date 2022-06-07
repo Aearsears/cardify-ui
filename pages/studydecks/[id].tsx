@@ -11,8 +11,8 @@ import { useMutation, useQuery } from 'urql';
 StudyDeck.propTypes = {};
 
 const CardsQuery = `
-query deckcards($id: ID) {
-  deck(where: {id: {exact: $id}}) {
+query getDeck($id: Int) {
+  deckById(id:$id) {
     cardSet {
       edges {
         node {
@@ -58,7 +58,7 @@ function StudyDeck(props) {
                 <div>
                     <Typography>COMP 250</Typography>
                     <Typography variant="subtitle1">
-                        {data.deck.cardSet.edges.length} cards
+                        {data.deckById.cardSet.edges.length} cards
                     </Typography>
                 </div>
                 <div className="text-right">
@@ -75,7 +75,7 @@ function StudyDeck(props) {
                         Cards
                     </Typography>
                 </div>
-                {data.deck.cardSet.edges.map((i) => {
+                {data.deckById.cardSet.edges.map((i) => {
                     return (
                         <EditCard
                             answer={i.node.answer.answerText}
