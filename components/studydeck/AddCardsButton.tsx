@@ -13,7 +13,7 @@ import Logout from '@mui/icons-material/Logout';
 import AddIcon from '@mui/icons-material/Add';
 import Fab from '@mui/material/Fab';
 
-export default function AccountMenu() {
+export default function AccountMenu(props: { subscribeWS: () => void }) {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -74,7 +74,13 @@ export default function AccountMenu() {
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
                 <MenuItem>Manual</MenuItem>
-                <MenuItem>A.I</MenuItem>
+                <MenuItem
+                    onClick={() => {
+                        props.subscribeWS();
+                    }}
+                >
+                    A.I
+                </MenuItem>
             </Menu>
         </React.Fragment>
     );

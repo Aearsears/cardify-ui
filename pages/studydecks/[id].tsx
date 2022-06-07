@@ -32,7 +32,6 @@ query getDeck($id: Int) {
 function StudyDeck(props) {
     const router = useRouter();
     const { id } = router.query;
-    console.log(id);
     // get deck info from backend api
     const [result, reexecuteQuery] = useQuery({
         query: CardsQuery,
@@ -52,6 +51,19 @@ function StudyDeck(props) {
         return <div>No data.</div>;
     }
     console.log(data);
+
+    const subscribeWS = () => {
+        const ws = new WebSocket('ws://localhost:4000/ws/cards/');
+
+        ws.onmessage = (event) => {
+            console.log(event);
+        };
+
+        ws.onopen = () => {
+            ws.send('{"message":"hello"}');
+        };
+    };
+
     return (
         <div className="mt-2">
             <div>
@@ -75,9 +87,10 @@ function StudyDeck(props) {
                         Cards
                     </Typography>
                 </div>
-                {data.deckById.cardSet.edges.map((i) => {
+                {data.deckById.cardSet.edges.map((i, index) => {
                     return (
                         <EditCard
+                            key={index}
                             answer={i.node.answer.answerText}
                             question={i.node.question.questionText}
                         ></EditCard>
@@ -85,7 +98,7 @@ function StudyDeck(props) {
                 })}
             </div>
             <div className="text-center">
-                <AddCardsButton></AddCardsButton>
+                <AddCardsButton subscribeWS={subscribeWS}></AddCardsButton>
             </div>
         </div>
     );
