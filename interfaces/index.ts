@@ -11,6 +11,6 @@ export type User = {
 export interface Card {
     question: string;
     answer: string;
-    context: string;
+    context?: string;
     id?: number;
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
@@ -7,6 +7,7 @@ import Link from 'next/link';
 import Spinner from '../../components/Spinner';
 import AddCardsButton from '../../components/studydeck/AddCardsButton';
 import { useQuery } from 'urql';
+import { Card } from '../../interfaces';
 
 StudyDeck.propTypes = {};
 
@@ -16,6 +17,7 @@ query getDeck($id: Int) {
     cardSet {
       edges {
         node {
+            id
           answer {
             answerText
           }
@@ -32,6 +34,7 @@ query getDeck($id: Int) {
 function StudyDeck(props) {
     const router = useRouter();
     const { id } = router.query;
+    const [newCards, setNewCards] = useState<Card[]>([]);
     // get deck info from backend api
     const [result, reexecuteQuery] = useQuery({
         query: CardsQuery,
@@ -78,7 +81,11 @@ function StudyDeck(props) {
             ws.send('{"message":"hello"}');
         };
     };
-
+    const addEmptyCard = () => {
+        newCards.push({ answer: 'answer', question: 'question' });
+        setNewCards([...newCards]);
+        console.log(newCards);
+    };
     return (
         <div className="mt-2">
             <div>
@@ -111,9 +118,15 @@ function StudyDeck(props) {
                         ></EditCard>
                     );
                 })}
+                {newCards.map((card) => {
+                    return <EditCard></EditCard>;
+                })}
             </div>
             <div className="text-center">
-                <AddCardsButton subscribeWS={subscribeWS}></AddCardsButton>
+                <AddCardsButton
+                    subscribeWS={subscribeWS}
+                    addEmptyCard={addEmptyCard}
+                ></AddCardsButton>
             </div>
         </div>
     );

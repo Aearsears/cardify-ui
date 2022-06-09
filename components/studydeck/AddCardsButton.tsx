@@ -13,7 +13,10 @@ import Logout from '@mui/icons-material/Logout';
 import AddIcon from '@mui/icons-material/Add';
 import Fab from '@mui/material/Fab';
 
-export default function AccountMenu(props: { subscribeWS: () => void }) {
+export default function AccountMenu(props: {
+    subscribeWS: () => void;
+    addEmptyCard: () => void;
+}) {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -73,7 +76,13 @@ export default function AccountMenu(props: { subscribeWS: () => void }) {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-                <MenuItem>Manual</MenuItem>
+                <MenuItem
+                    onClick={() => {
+                        props.addEmptyCard();
+                    }}
+                >
+                    Manual
+                </MenuItem>
                 <MenuItem
                     onClick={() => {
                         props.subscribeWS();
