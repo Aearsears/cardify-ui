@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
@@ -6,7 +6,7 @@ import EditCard from '../../components/studydeck/EditCard';
 import Link from 'next/link';
 import Spinner from '../../components/Spinner';
 import AddCardsButton from '../../components/studydeck/AddCardsButton';
-import { useMutation, useQuery } from 'urql';
+import { useQuery } from 'urql';
 
 StudyDeck.propTypes = {};
 
@@ -37,7 +37,7 @@ function StudyDeck(props) {
         query: CardsQuery,
         variables: { id }
     });
-    const { data, fetching, error } = result;
+    const { data: cardsdata, fetching, error } = result;
 
     if (fetching) {
         return <Spinner size={20}></Spinner>;
@@ -47,16 +47,31 @@ function StudyDeck(props) {
 
         return <div>There was an error.</div>;
     }
-    if (data.length == 0) {
+    if (cardsdata.length == 0) {
         return <div>No data.</div>;
     }
-    console.log(data);
+    console.log(cardsdata);
+
+    const fetcher = (url: string, id: string) =>
+        fetch(url + `?id=${id}`, {
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then((res) => res.json());
 
     const subscribeWS = () => {
         const ws = new WebSocket('ws://localhost:4000/ws/cards/');
-
+        const id = '54';
         ws.onmessage = (event) => {
-            console.log(event);
+            let message = JSON.parse(event.data);
+            console.log(message);
+            if (message.message === id) {
+                fetcher('http://localhost:4000/qareceive', id).then((res) => {
+                    console.log(res);
+                });
+                ws.close();
+            }
         };
 
         ws.onopen = () => {
@@ -70,7 +85,7 @@ function StudyDeck(props) {
                 <div>
                     <Typography>COMP 250</Typography>
                     <Typography variant="subtitle1">
-                        {data.deckById.cardSet.edges.length} cards
+                        {cardsdata.deckById.cardSet.edges.length} cards
                     </Typography>
                 </div>
                 <div className="text-right">
@@ -87,7 +102,7 @@ function StudyDeck(props) {
                         Cards
                     </Typography>
                 </div>
-                {data.deckById.cardSet.edges.map((i, index) => {
+                {cardsdata.deckById.cardSet.edges.map((i, index) => {
                     return (
                         <EditCard
                             key={index}
