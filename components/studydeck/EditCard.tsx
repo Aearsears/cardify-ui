@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styles from './EditCard.module.css';
 import { Paper, Typography } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
+import ErrorIcon from '@mui/icons-material/Error';
 import Spinner from '../Spinner';
 import InlineEdit from './InlineEdit';
 import { useMutation } from 'urql';
@@ -26,19 +27,44 @@ mutation updateCard($input:CardInput!){
 `;
 function EditCard(props: Props) {
     const [isSaving, setSaving] = useState(false);
+    const [error, setError] = useState(false);
     const [hasSavedOnce, setHasSavedOnce] = useState(false);
     const [answer, setAnswer] = useState(props.answer);
     const [question, setQuestion] = useState(props.question);
     const [mutationResult, executeMutation] = useMutation(UpdateCardMutation);
     const mountedRef = useRef(null);
 
+    const updateCard = (
+        questionText: string,
+        answerText: string,
+        cardId: string
+    ) => {
+        const variables = { input: { questionText, answerText, cardId } };
+        return executeMutation(variables);
+    };
+
     useEffect(() => {
         if (isSaving) {
             setHasSavedOnce(true);
+            updateCard(
+                question,
+                answer,
+                Buffer.from(props.cardId, 'base64')
+                    .toString('ascii')
+                    .split(':')[1]
+            ).then((result) => {
+                console.log(result);
+                if (result.error) {
+                    setError(true);
+                }
+                //in case of retries
+                else {
+                    setError(false);
+                }
+                setSaving(false);
+            });
+        } else {
         }
-        console.log('executing');
-
-        setSaving(false);
     }, [isSaving]);
 
     return (
@@ -48,6 +74,11 @@ function EditCard(props: Props) {
                     isSaving ? (
                         <span>
                             <Spinner size={20}></Spinner>Saving
+                        </span>
+                    ) : error ? (
+                        <span>
+                            <ErrorIcon></ErrorIcon>
+                            Something went wrong, please try again.
                         </span>
                     ) : (
                         <span>

@@ -24,6 +24,7 @@ const InlineEdit = (props: Props) => {
         if (event.target.value.trim() === props.value) {
             setEditingValue(props.value);
         } else {
+            props.setValue(event.target.value.trim());
             props.setSaving(true);
         }
         setFocus(!focus);

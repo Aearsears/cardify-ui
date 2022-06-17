@@ -51,6 +51,8 @@ function StudyDeck(props) {
     const { data: cardsdata, fetching, error } = result;
     useEffect(() => {
         if (router.isReady) {
+            console.log('in the [id] page');
+
             reexecuteQuery();
         }
     }, [router.isReady]);
@@ -141,9 +143,6 @@ function StudyDeck(props) {
                             question={card.node.questionText}
                         ></EditCard>
                     );
-                })}
-                {newCards.map((card) => {
-                    return <EditCard></EditCard>;
                 })}
             </div>
             <div className="text-center">
