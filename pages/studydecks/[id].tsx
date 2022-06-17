@@ -6,24 +6,20 @@ import EditCard from '../../components/studydeck/EditCard';
 import Link from 'next/link';
 import Spinner from '../../components/Spinner';
 import AddCardsButton from '../../components/studydeck/AddCardsButton';
-import { useQuery } from 'urql';
+import { useMutation, useQuery } from 'urql';
 import { Card } from '../../interfaces';
 
 StudyDeck.propTypes = {};
 
 const CardsQuery = `
-query getDeck($id: Int) {
+query getDeck($id: ID!) {
   deckById(id:$id) {
     cardSet {
       edges {
         node {
             id
-          answer {
             answerText
-          }
-          question {
             questionText
-          }
         }
       }
     }
@@ -31,9 +27,19 @@ query getDeck($id: Int) {
 }
 `;
 
+const AddCardMutation = `
+mutation createCard($input:CardInput!){
+  createCard(cardInput:$input){
+    card{
+      id
+    }
+  }
+}
+`;
 function StudyDeck(props) {
     const router = useRouter();
     const { id } = router.query;
+    const [mutationResult, executeMutation] = useMutation(AddCardMutation);
     const [newCards, setNewCards] = useState<Card[]>([]);
     // get deck info from backend api
     const [result, reexecuteQuery] = useQuery({
@@ -76,15 +82,25 @@ function StudyDeck(props) {
                 ws.close();
             }
         };
-
         ws.onopen = () => {
             ws.send('{"message":"hello"}');
         };
     };
+
+    const addCard = (
+        questionText: string,
+        answerText: string,
+        deckId: string
+    ) => {
+        const variables = { input: { questionText, answerText, deckId } };
+        executeMutation(variables).then((result) => {
+            reexecuteQuery();
+        });
+    };
+
     const addEmptyCard = () => {
-        newCards.push({ answer: 'answer', question: 'question' });
-        setNewCards([...newCards]);
-        console.log(newCards);
+        // need to add empty card to deck
+        addCard('question', 'answer', id as string);
     };
     return (
         <div className="mt-2">
@@ -109,12 +125,12 @@ function StudyDeck(props) {
                         Cards
                     </Typography>
                 </div>
-                {cardsdata.deckById.cardSet.edges.map((i, index) => {
+                {cardsdata.deckById.cardSet.edges.map((card) => {
                     return (
                         <EditCard
-                            key={index}
-                            answer={i.node.answer.answerText}
-                            question={i.node.question.questionText}
+                            key={card.node.id}
+                            answer={card.node.answerText}
+                            question={card.node.questionText}
                         ></EditCard>
                     );
                 })}
