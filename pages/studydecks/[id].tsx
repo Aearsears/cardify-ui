@@ -129,6 +129,7 @@ function StudyDeck(props) {
                     return (
                         <EditCard
                             key={card.node.id}
+                            cardId={card.node.id}
                             answer={card.node.answerText}
                             question={card.node.questionText}
                         ></EditCard>

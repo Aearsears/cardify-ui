@@ -10,6 +10,7 @@ EditCard.propTypes = {};
 interface Props {
     question?: string;
     answer?: string;
+    cardId?: string;
 }
 
 function EditCard(props: Props) {
@@ -23,6 +24,7 @@ function EditCard(props: Props) {
         if (isSaving) {
             setHasSavedOnce(true);
         }
+        //need to send to backend here
     }, [isSaving]);
 
     return (
