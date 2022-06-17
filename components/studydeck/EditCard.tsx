@@ -10,7 +10,6 @@ EditCard.propTypes = {};
 interface Props {
     question?: string;
     answer?: string;
-    context?: string;
 }
 
 function EditCard(props: Props) {
@@ -18,7 +17,6 @@ function EditCard(props: Props) {
     const [hasSavedOnce, setHasSavedOnce] = useState(false);
     const [answer, setAnswer] = useState(props.answer);
     const [question, setQuestion] = useState(props.question);
-    const [context, setContext] = useState(props.context);
     const mountedRef = useRef(null);
 
     useEffect(() => {
@@ -60,16 +58,6 @@ function EditCard(props: Props) {
                 <InlineEdit
                     value={answer || ''}
                     setValue={setAnswer}
-                    setSaving={setSaving}
-                ></InlineEdit>
-            </div>
-            <div className="flex">
-                <Typography component="div" className="py-2">
-                    Context:
-                </Typography>
-                <InlineEdit
-                    value={context || ''}
-                    setValue={setContext}
                     setSaving={setSaving}
                 ></InlineEdit>
             </div>
