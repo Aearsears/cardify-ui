@@ -48,7 +48,7 @@ function EditCard(props: Props) {
                     Q:
                 </Typography>
                 <InlineEdit
-                    value={question}
+                    value={question || ''}
                     setValue={setQuestion}
                     setSaving={setSaving}
                 ></InlineEdit>
@@ -58,7 +58,7 @@ function EditCard(props: Props) {
                     A:
                 </Typography>
                 <InlineEdit
-                    value={answer}
+                    value={answer || ''}
                     setValue={setAnswer}
                     setSaving={setSaving}
                 ></InlineEdit>
@@ -68,7 +68,7 @@ function EditCard(props: Props) {
                     Context:
                 </Typography>
                 <InlineEdit
-                    value={context}
+                    value={context || ''}
                     setValue={setContext}
                     setSaving={setSaving}
                 ></InlineEdit>

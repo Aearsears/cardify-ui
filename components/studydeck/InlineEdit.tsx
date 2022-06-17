@@ -1,10 +1,14 @@
 import { useContext, useState } from 'react';
 import ColourModeContext from '../../styles/ColourModeContext';
-
-const InlineEdit = ({ value, setValue, setSaving }) => {
+interface Props {
+    value: string;
+    setValue: (value: string) => void;
+    setSaving: (state: boolean) => void;
+}
+const InlineEdit = (props: Props) => {
     const { darkMode } = useContext(ColourModeContext);
 
-    const [editingValue, setEditingValue] = useState(value);
+    const [editingValue, setEditingValue] = useState(props.value);
     const [focus, setFocus] = useState(false);
 
     const onChange = (event) => setEditingValue(event.target.value);
@@ -16,17 +20,17 @@ const InlineEdit = ({ value, setValue, setSaving }) => {
     };
 
     const onBlur = (event) => {
-        if (event.target.value.trim() === value) {
-            setEditingValue(value);
+        if (event.target.value.trim() === props.value) {
+            setEditingValue(props.value);
         } else {
-            setValue(event.target.value);
-            setSaving(true);
+            props.setValue(event.target.value);
+            props.setSaving(true);
             //post to the card's id and field
             fetch('/api/cards', { method: 'POST' })
                 .then((req) => req.json())
                 .then((data) => {
                     console.log(data);
-                    setSaving(false);
+                    props.setSaving(false);
                 });
         }
         setFocus(!focus);
