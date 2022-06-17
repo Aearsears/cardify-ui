@@ -1,5 +1,5 @@
 import { createTheme } from '@mui/material/styles';
-import { red } from '@mui/material/colors';
+import { withTheme } from '@emotion/react';
 
 // Create a theme instance.
 const darktheme = createTheme({
@@ -13,7 +13,7 @@ const darktheme = createTheme({
             main: '#7d1d3f'
         },
         error: {
-            main: red.A400
+            main: '#FFFFFF'
         },
         info: {
             main: '#512500'

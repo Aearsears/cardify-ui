@@ -8,6 +8,7 @@ import Spinner from '../../components/Spinner';
 import AddCardsButton from '../../components/studydeck/AddCardsButton';
 import { useMutation, useQuery } from 'urql';
 import { Card } from '../../interfaces';
+import AddAICardDialog from '../../components/studydeck/AddAICardDialog';
 
 StudyDeck.propTypes = {};
 
@@ -36,12 +37,13 @@ mutation createCard($input:CardInput!){
   }
 }
 `;
+// react renders component every time there is a state change, need to see where improvements can be made
 function StudyDeck(props) {
     const router = useRouter();
     const { id } = router.query;
 
     const [mutationResult, executeMutation] = useMutation(AddCardMutation);
-    const [newCards, setNewCards] = useState<Card[]>([]);
+    const [openDialog, setOpenDialog] = useState(false);
     // get deck info from backend api
     const [result, reexecuteQuery] = useQuery({
         query: CardsQuery,
@@ -96,6 +98,10 @@ function StudyDeck(props) {
         };
     };
 
+    const addAICard = () => {
+        setOpenDialog(true);
+    };
+
     const addCard = (
         questionText: string,
         answerText: string,
@@ -147,9 +153,13 @@ function StudyDeck(props) {
             </div>
             <div className="text-center">
                 <AddCardsButton
-                    subscribeWS={subscribeWS}
+                    subscribeWS={addAICard}
                     addEmptyCard={addEmptyCard}
                 ></AddCardsButton>
+                <AddAICardDialog
+                    open={openDialog}
+                    setOpen={setOpenDialog}
+                ></AddAICardDialog>
             </div>
         </div>
     );
