@@ -39,14 +39,21 @@ mutation createCard($input:CardInput!){
 function StudyDeck(props) {
     const router = useRouter();
     const { id } = router.query;
+
     const [mutationResult, executeMutation] = useMutation(AddCardMutation);
     const [newCards, setNewCards] = useState<Card[]>([]);
     // get deck info from backend api
     const [result, reexecuteQuery] = useQuery({
         query: CardsQuery,
-        variables: { id }
+        variables: { id },
+        pause: true
     });
     const { data: cardsdata, fetching, error } = result;
+    useEffect(() => {
+        if (router.isReady) {
+            reexecuteQuery();
+        }
+    }, [router.isReady]);
 
     if (fetching) {
         return <Spinner size={20}></Spinner>;
@@ -56,7 +63,7 @@ function StudyDeck(props) {
 
         return <div>There was an error.</div>;
     }
-    if (cardsdata.length == 0) {
+    if (cardsdata?.length == 0) {
         return <div>No data.</div>;
     }
     console.log(cardsdata);
@@ -108,7 +115,7 @@ function StudyDeck(props) {
                 <div>
                     <Typography>COMP 250</Typography>
                     <Typography variant="subtitle1">
-                        {cardsdata.deckById.cardSet.edges.length} cards
+                        {cardsdata?.deckById.cardSet.edges.length} cards
                     </Typography>
                 </div>
                 <div className="text-right">
@@ -125,7 +132,7 @@ function StudyDeck(props) {
                         Cards
                     </Typography>
                 </div>
-                {cardsdata.deckById.cardSet.edges.map((card) => {
+                {cardsdata?.deckById.cardSet.edges.map((card) => {
                     return (
                         <EditCard
                             key={card.node.id}

@@ -20,18 +20,11 @@ const InlineEdit = (props: Props) => {
     };
 
     const onBlur = (event) => {
+        //if there are no changes in the text, don't do anything
         if (event.target.value.trim() === props.value) {
             setEditingValue(props.value);
         } else {
-            props.setValue(event.target.value);
             props.setSaving(true);
-            //post to the card's id and field
-            fetch('/api/cards', { method: 'POST' })
-                .then((req) => req.json())
-                .then((data) => {
-                    console.log(data);
-                    props.setSaving(false);
-                });
         }
         setFocus(!focus);
     };

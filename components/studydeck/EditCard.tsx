@@ -5,6 +5,7 @@ import { Paper, Typography } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import Spinner from '../Spinner';
 import InlineEdit from './InlineEdit';
+import { useMutation } from 'urql';
 EditCard.propTypes = {};
 
 interface Props {
@@ -13,18 +14,31 @@ interface Props {
     cardId?: string;
 }
 
+const UpdateCardMutation = `
+mutation updateCard($input:CardInput!){
+  updateCard(cardInput:$input){
+    card{
+        questionText
+        answerText
+    }
+  }
+}
+`;
 function EditCard(props: Props) {
     const [isSaving, setSaving] = useState(false);
     const [hasSavedOnce, setHasSavedOnce] = useState(false);
     const [answer, setAnswer] = useState(props.answer);
     const [question, setQuestion] = useState(props.question);
+    const [mutationResult, executeMutation] = useMutation(UpdateCardMutation);
     const mountedRef = useRef(null);
 
     useEffect(() => {
         if (isSaving) {
             setHasSavedOnce(true);
         }
-        //need to send to backend here
+        console.log('executing');
+
+        setSaving(false);
     }, [isSaving]);
 
     return (
