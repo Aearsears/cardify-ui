@@ -14,16 +14,18 @@ AddAICardDialog.propTypes = {};
 interface Props {
     open: boolean;
     setOpen: (state: boolean) => void;
+    dialogText: String;
+    setDialogText: (text: string) => void;
+    handleGo: () => void;
 }
 function AddAICardDialog(props: Props) {
-    const [userInput, setUserInput] = useState('');
-
     const handleClose = () => {
         props.setOpen(false);
+        props.setDialogText('');
     };
 
     const handleTextFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setUserInput(e.target.value);
+        props.setDialogText(e.target.value);
     };
 
     return (
@@ -44,18 +46,18 @@ function AddAICardDialog(props: Props) {
                         fullWidth
                         variant="standard"
                         color="error"
-                        value={userInput}
+                        value={props.dialogText}
                         onChange={handleTextFieldChange}
                     />
                     <DialogContentText color="info">
-                        Current number of characters: {userInput.length}
+                        Current number of characters: {props.dialogText.length}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="info">
                         Cancel
                     </Button>
-                    <Button onClick={handleClose} color="info">
+                    <Button onClick={props.handleGo} color="info">
                         Go!
                     </Button>
                 </DialogActions>

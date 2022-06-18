@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Typography } from '@mui/material';
+import { Button, LinearProgress, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import EditCard from '../../components/studydeck/EditCard';
 import Link from 'next/link';
 import Spinner from '../../components/Spinner';
 import AddCardsButton from '../../components/studydeck/AddCardsButton';
 import { useMutation, useQuery } from 'urql';
-import { Card } from '../../interfaces';
 import AddAICardDialog from '../../components/studydeck/AddAICardDialog';
+import { v4 as uuidv4 } from 'uuid';
 
 StudyDeck.propTypes = {};
 
@@ -44,6 +44,8 @@ function StudyDeck(props) {
 
     const [mutationResult, executeMutation] = useMutation(AddCardMutation);
     const [openDialog, setOpenDialog] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [dialogText, setDialogText] = useState('');
     // get deck info from backend api
     const [result, reexecuteQuery] = useQuery({
         query: CardsQuery,
@@ -80,29 +82,11 @@ function StudyDeck(props) {
             }
         }).then((res) => res.json());
 
-    const subscribeWS = () => {
-        const ws = new WebSocket('ws://localhost:4000/ws/cards/');
-        const id = '54';
-        ws.onmessage = (event) => {
-            let message = JSON.parse(event.data);
-            console.log(message);
-            if (message.message === id) {
-                fetcher('http://localhost:4000/qareceive', id).then((res) => {
-                    console.log(res);
-                });
-                ws.close();
-            }
-        };
-        ws.onopen = () => {
-            ws.send('{"message":"hello"}');
-        };
-    };
-
     const addAICard = () => {
         setOpenDialog(true);
     };
 
-    const addCard = (
+    const addOneCard = (
         questionText: string,
         answerText: string,
         deckId: string
@@ -115,7 +99,54 @@ function StudyDeck(props) {
 
     const addEmptyCard = () => {
         // need to add empty card to deck
-        addCard('question', 'answer', id as string);
+        addOneCard('question', 'answer', id as string);
+    };
+    const handleGo = () => {
+        //get the text from dialog text
+        //add to the end of the notes a sentence indicating the id of the text
+        let qa = [];
+        const qaid = uuidv4();
+        const sentence = 'The request id is ' + qaid + '.';
+        const mssg = encodeURIComponent(dialogText + sentence);
+        // then call the fucntion subscribe to the ws backend with the id
+        const ws = new WebSocket('ws://localhost:4000/ws/cards/');
+        ws.onmessage = (event) => {
+            let message = JSON.parse(event.data);
+            console.log(message);
+            if (message.message === qaid) {
+                //wait for the backend to issue a message with the id and then get the q and a.
+                fetcher('http://localhost:4000/qareceive', qaid).then((res) => {
+                    qa = res;
+                    //create the cards from the q and a.
+                    qa.forEach((item) => {
+                        const variables = {
+                            input: {
+                                questionText: item.question,
+                                answerText: item.answer,
+                                deckId: id
+                            }
+                        };
+                        executeMutation(variables).then((result) => {});
+                        console.log(item);
+                    });
+                    setLoading(false);
+                    ws.close();
+                });
+            }
+        };
+        // post the text to the backend
+        fetch('http://localhost:4000/qa', {
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: 'POST',
+            body: JSON.stringify({ text: mssg })
+        }).then((res) => res.json());
+
+        setOpenDialog(false);
+        setLoading(true);
+        setDialogText('');
     };
     return (
         <div className="mt-2">
@@ -152,6 +183,7 @@ function StudyDeck(props) {
                 })}
             </div>
             <div className="text-center">
+                {loading ? <LinearProgress color="secondary" /> : null}
                 <AddCardsButton
                     subscribeWS={addAICard}
                     addEmptyCard={addEmptyCard}
@@ -159,6 +191,9 @@ function StudyDeck(props) {
                 <AddAICardDialog
                     open={openDialog}
                     setOpen={setOpenDialog}
+                    dialogText={dialogText}
+                    setDialogText={setDialogText}
+                    handleGo={handleGo}
                 ></AddAICardDialog>
             </div>
         </div>
