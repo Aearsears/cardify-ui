@@ -115,7 +115,7 @@ function StudyDeck(props) {
             if (message.message === qaid) {
                 //wait for the backend to issue a message with the id and then get the q and a.
                 fetcher(
-                    'https://cardify-backend.herokuapp.com/qareceive',
+                    'https://cardify-backend.herokuapp.com/cards/qareceive',
                     qaid
                 ).then((res) => {
                     qa = res;
@@ -137,7 +137,7 @@ function StudyDeck(props) {
             }
         };
         // post the text to the backend
-        fetch('https://cardify-backend.herokuapp.com/qa', {
+        fetch('https://cardify-backend.herokuapp.com/cards/qa', {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json'
