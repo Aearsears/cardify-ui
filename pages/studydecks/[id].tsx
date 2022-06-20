@@ -109,13 +109,18 @@ function StudyDeck(props) {
         const sentence = 'The request id is ' + qaid + '.';
         const mssg = encodeURIComponent(dialogText + sentence);
         // then call the fucntion subscribe to the ws backend with the id
-        const ws = new WebSocket('ws://localhost:4000/ws/cards/');
+        const ws = new WebSocket(
+            'ws://cardify-backend.herokuapp.com/ws/cards/'
+        );
         ws.onmessage = (event) => {
             let message = JSON.parse(event.data);
             console.log(message);
             if (message.message === qaid) {
                 //wait for the backend to issue a message with the id and then get the q and a.
-                fetcher('http://localhost:4000/qareceive', qaid).then((res) => {
+                fetcher(
+                    'https://cardify-backend.herokuapp.com/qareceive',
+                    qaid
+                ).then((res) => {
                     qa = res;
                     //create the cards from the q and a.
                     qa.forEach((item) => {
@@ -135,7 +140,7 @@ function StudyDeck(props) {
             }
         };
         // post the text to the backend
-        fetch('http://localhost:4000/qa', {
+        fetch('https://cardify-backend.herokuapp.com/qa', {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json'

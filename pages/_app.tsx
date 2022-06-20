@@ -17,7 +17,7 @@ import { createClient, Provider } from 'urql';
 const clientSideEmotionCache = createEmotionCache();
 
 const graphqlClient = createClient({
-    url: 'http://localhost:4000/graphql/',
+    url: 'https://cardify-backend.herokuapp.com/graphql',
     preferGetMethod: false
 });
 
