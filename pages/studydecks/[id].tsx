@@ -104,7 +104,7 @@ function StudyDeck(props) {
         let qa = [];
         const qaid = uuidv4();
         const sentence = 'The request id is ' + qaid + '.';
-        const mssg = encodeURIComponent(dialogText + sentence);
+        const mssg = dialogText + sentence;
         // then call the fucntion subscribe to the ws backend with the id
         const ws = new WebSocket(
             'wss://cardify-backend.herokuapp.com/ws/cards/'
