@@ -107,7 +107,7 @@ function StudyDeck(props) {
         const mssg = encodeURIComponent(dialogText + sentence);
         // then call the fucntion subscribe to the ws backend with the id
         const ws = new WebSocket(
-            'ws://cardify-backend.herokuapp.com/ws/cards/'
+            'wss://cardify-backend.herokuapp.com/ws/cards/'
         );
         ws.onmessage = (event) => {
             let message = JSON.parse(event.data);
