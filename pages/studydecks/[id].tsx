@@ -69,9 +69,6 @@ function StudyDeck(props) {
 
         return <div>There was an error.</div>;
     }
-    if (cardsdata?.length == 0) {
-        return <div>No data.</div>;
-    }
     console.log(cardsdata);
 
     const fetcher = (url: string, id: string) =>
