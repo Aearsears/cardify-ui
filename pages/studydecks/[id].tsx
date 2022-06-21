@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button, LinearProgress, Typography } from '@mui/material';
+import { Button, LinearProgress, Paper, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import EditCard from '../../components/studydeck/EditCard';
 import Link from 'next/link';
@@ -46,6 +46,9 @@ function StudyDeck(props) {
     const [openDialog, setOpenDialog] = useState(false);
     const [loading, setLoading] = useState(false);
     const [dialogText, setDialogText] = useState('');
+    const [tempQuestions, setTempQuestions] = useState<
+        { question: string; answer: string }[][]
+    >([]);
     // get deck info from backend api
     const [result, reexecuteQuery] = useQuery({
         query: CardsQuery,
@@ -133,6 +136,15 @@ function StudyDeck(props) {
                     ws.close();
                 });
             }
+            //case where the AI did not generate a question for the id
+            else {
+                fetcher(
+                    'http://localhost:4000/qareceive',
+                    message.message
+                ).then((res) => {
+                    setTempQuestions((ques) => [...ques, res]);
+                });
+            }
         };
         // post the text to the backend
         fetch('http://localhost:4000/qa', {
@@ -142,12 +154,13 @@ function StudyDeck(props) {
             },
             method: 'POST',
             body: JSON.stringify({ text: mssg })
-        }).then((res) => res.json());
+        }).then((res) => res);
 
         setOpenDialog(false);
         setLoading(true);
         setDialogText('');
     };
+
     return (
         <div className="mt-2">
             <div>
@@ -195,6 +208,36 @@ function StudyDeck(props) {
                     setDialogText={setDialogText}
                     handleGo={handleGo}
                 ></AddAICardDialog>
+            </div>
+            <div>
+                {tempQuestions.length != 0 ? (
+                    <div>
+                        <div className="flex">
+                            <Typography component="div" className="mr-1">
+                                Still don't have your cards? Maybe the Q&amp;A
+                                below are yours:
+                            </Typography>
+                        </div>
+                        {tempQuestions.map((qa) => {
+                            console.log(qa);
+
+                            return (
+                                <div className="m-2">
+                                    {qa.map((i) => {
+                                        return (
+                                            <div>
+                                                <Paper className="">
+                                                    Question: {i.question}{' '}
+                                                    Answer: {i.answer}
+                                                </Paper>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            );
+                        })}
+                    </div>
+                ) : null}
             </div>
         </div>
     );
