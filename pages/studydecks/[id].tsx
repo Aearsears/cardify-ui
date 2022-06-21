@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, LinearProgress, Paper, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
@@ -55,6 +55,8 @@ function StudyDeck(props) {
     const [DeleteCardMutationResult, executeDeleteCardMutation] =
         useMutation(DeleteCardMutation);
 
+    const ws = useRef(null);
+
     const [openDialog, setOpenDialog] = useState(false);
     const [loading, setLoading] = useState(false);
     const [dialogText, setDialogText] = useState('');
@@ -65,7 +67,9 @@ function StudyDeck(props) {
         variables: { id },
         pause: true
     });
+
     const { data: cardsdata, fetching, error } = result;
+
     useEffect(() => {
         if (router.isReady) {
             //no cache for first request
@@ -121,8 +125,8 @@ function StudyDeck(props) {
         const sentence = 'The request id is ' + qaid + '.';
         const mssg = encodeURIComponent(dialogText + sentence);
         // then call the fucntion subscribe to the ws backend with the id
-        const ws = new WebSocket('ws://localhost:4000/ws/cards/');
-        ws.onmessage = (event) => {
+        ws.current = new WebSocket('ws://localhost:4000/ws/cards/');
+        ws.current.onmessage = (event) => {
             let message = JSON.parse(event.data);
             console.log(message);
             if (message.message === qaid) {
@@ -135,7 +139,7 @@ function StudyDeck(props) {
                         console.log(item);
                     });
                     setLoading(false);
-                    ws.close();
+                    ws.current.close();
                 });
             }
             //case where the AI did not generate a question for the id
@@ -148,6 +152,7 @@ function StudyDeck(props) {
                 });
             }
         };
+
         // post the text to the backend
         fetch('http://localhost:4000/qa', {
             headers: {
@@ -181,7 +186,7 @@ function StudyDeck(props) {
         });
         setLoading(false);
         setTempQuestions([]);
-        // close ws, need to make ws global maybe?
+        ws.current.close();
     };
     return (
         <div className="mt-2">
