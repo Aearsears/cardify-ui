@@ -253,12 +253,11 @@ function StudyDeck(props) {
 
                             return (
                                 <div className="m-2" key={'outer' + index}>
-                                    {qa.map((item) => {
+                                    {qa.map((item, iindex) => {
                                         return (
-                                            // TODO: fix react unique key bug
-                                            <div key={'inner' + index}>
+                                            <div key={'inner' + iindex}>
                                                 <Paper
-                                                    key={'qa' + index}
+                                                    key={'qa' + iindex}
                                                     className="cursor-pointer"
                                                     onClick={() => {
                                                         noIDHandler(index);
