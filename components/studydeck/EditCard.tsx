@@ -1,9 +1,10 @@
 import React, { SetStateAction, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from './EditCard.module.css';
-import { Paper, Typography } from '@mui/material';
+import { Button, Paper, Typography } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import ErrorIcon from '@mui/icons-material/Error';
+import DeleteIcon from '@mui/icons-material/Delete';
 import Spinner from '../Spinner';
 import InlineEdit from './InlineEdit';
 import { useMutation } from 'urql';
@@ -13,6 +14,7 @@ interface Props {
     question?: string;
     answer?: string;
     cardId?: string;
+    deleteCard: (id: string) => void;
 }
 
 const UpdateCardMutation = `
@@ -69,24 +71,37 @@ function EditCard(props: Props) {
 
     return (
         <Paper className={styles.wrapper} ref={mountedRef}>
-            <div className="text-gray-400 ml-1">
-                {hasSavedOnce ? (
-                    isSaving ? (
-                        <span>
-                            <Spinner size={20}></Spinner>Saving
-                        </span>
-                    ) : error ? (
-                        <span>
-                            <ErrorIcon></ErrorIcon>
-                            Something went wrong, please try again.
-                        </span>
-                    ) : (
-                        <span>
-                            <CheckIcon></CheckIcon>
-                            Saved
-                        </span>
-                    )
-                ) : null}
+            <div className="text-gray-400 ml-1 flex justify-between content-center items-center">
+                <div>
+                    {hasSavedOnce ? (
+                        isSaving ? (
+                            <span>
+                                <Spinner size={20}></Spinner>Saving
+                            </span>
+                        ) : error ? (
+                            <span>
+                                <ErrorIcon></ErrorIcon>
+                                Something went wrong, please try again.
+                            </span>
+                        ) : (
+                            <span>
+                                <CheckIcon></CheckIcon>
+                                Saved
+                            </span>
+                        )
+                    ) : null}
+                </div>
+                <div>
+                    <Button
+                        variant="outlined"
+                        startIcon={<DeleteIcon />}
+                        onClick={() => {
+                            props.deleteCard(props.cardId);
+                        }}
+                    >
+                        Delete
+                    </Button>
+                </div>
             </div>
             <div className="flex">
                 <Typography component="div" className="py-2">

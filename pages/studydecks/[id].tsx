@@ -9,7 +9,7 @@ import AddCardsButton from '../../components/studydeck/AddCardsButton';
 import { useMutation, useQuery } from 'urql';
 import AddAICardDialog from '../../components/studydeck/AddAICardDialog';
 import { v4 as uuidv4 } from 'uuid';
-
+import { Card } from '../../interfaces';
 StudyDeck.propTypes = {};
 
 const CardsQuery = `
@@ -37,18 +37,28 @@ mutation createCard($input:CardInput!){
   }
 }
 `;
+
+const DeleteCardMutation = `
+mutation deleteCard($id:ID!){
+  deleteCard(id:$id){
+    res
+  }
+}
+`;
 // react renders component every time there is a state change, need to see where improvements can be made
 function StudyDeck(props) {
     const router = useRouter();
     const { id } = router.query;
 
-    const [mutationResult, executeMutation] = useMutation(AddCardMutation);
+    const [AddCardMutationResult, executeAddCardMutation] =
+        useMutation(AddCardMutation);
+    const [DeleteCardMutationResult, executeDeleteCardMutation] =
+        useMutation(DeleteCardMutation);
+
     const [openDialog, setOpenDialog] = useState(false);
     const [loading, setLoading] = useState(false);
     const [dialogText, setDialogText] = useState('');
-    const [tempQuestions, setTempQuestions] = useState<
-        { question: string; answer: string }[][]
-    >([]);
+    const [tempQuestions, setTempQuestions] = useState<Card[][]>([]);
     // get deck info from backend api
     const [result, reexecuteQuery] = useQuery({
         query: CardsQuery,
@@ -58,8 +68,7 @@ function StudyDeck(props) {
     const { data: cardsdata, fetching, error } = result;
     useEffect(() => {
         if (router.isReady) {
-            console.log('in the [id] page');
-
+            //no cache for first request
             reexecuteQuery();
         }
     }, [router.isReady]);
@@ -95,8 +104,8 @@ function StudyDeck(props) {
         deckId: string
     ) => {
         const variables = { input: { questionText, answerText, deckId } };
-        executeMutation(variables).then((result) => {
-            reexecuteQuery();
+        executeAddCardMutation(variables).then((result) => {
+            reexecuteQuery({ requestPolicy: 'cache-and-network' });
         });
     };
 
@@ -104,7 +113,7 @@ function StudyDeck(props) {
         // need to add empty card to deck
         addOneCard('question', 'answer', id as string);
     };
-    const handleGo = () => {
+    const handleGoAI = () => {
         //get the text from dialog text
         //add to the end of the notes a sentence indicating the id of the text
         let qa = [];
@@ -122,14 +131,7 @@ function StudyDeck(props) {
                     qa = res;
                     //create the cards from the q and a.
                     qa.forEach((item) => {
-                        const variables = {
-                            input: {
-                                questionText: item.question,
-                                answerText: item.answer,
-                                deckId: id
-                            }
-                        };
-                        executeMutation(variables).then((result) => {});
+                        addOneCard(item.question, item.answer, id as string);
                         console.log(item);
                     });
                     setLoading(false);
@@ -161,6 +163,26 @@ function StudyDeck(props) {
         setDialogText('');
     };
 
+    const deleteCard = (id: string) => {
+        const variables = {
+            id: Buffer.from(id, 'base64').toString('ascii').split(':')[1]
+        };
+        executeDeleteCardMutation(variables).then((result) => {
+            reexecuteQuery({ requestPolicy: 'cache-and-network' });
+        });
+    };
+
+    const noIDHandler = (index: number) => {
+        console.log('tempqeust' + index);
+        let qa = tempQuestions[index];
+        qa.forEach((card) => {
+            addOneCard(card.question, card.answer, id as string);
+            console.log(card);
+        });
+        setLoading(false);
+        setTempQuestions([]);
+        // close ws, need to make ws global maybe?
+    };
     return (
         <div className="mt-2">
             <div>
@@ -184,16 +206,19 @@ function StudyDeck(props) {
                         Cards
                     </Typography>
                 </div>
-                {cardsdata?.deckById.cardSet.edges.map((card) => {
-                    return (
-                        <EditCard
-                            key={card.node.id}
-                            cardId={card.node.id}
-                            answer={card.node.answerText}
-                            question={card.node.questionText}
-                        ></EditCard>
-                    );
-                })}
+                <div className="cards w-4/6 m-auto">
+                    {cardsdata?.deckById.cardSet.edges.map((card) => {
+                        return (
+                            <EditCard
+                                key={card.node.id}
+                                cardId={card.node.id}
+                                answer={card.node.answerText}
+                                question={card.node.questionText}
+                                deleteCard={deleteCard}
+                            ></EditCard>
+                        );
+                    })}
+                </div>
             </div>
             <div className="text-center">
                 {loading ? <LinearProgress color="secondary" /> : null}
@@ -206,7 +231,7 @@ function StudyDeck(props) {
                     setOpen={setOpenDialog}
                     dialogText={dialogText}
                     setDialogText={setDialogText}
-                    handleGo={handleGo}
+                    handleGo={handleGoAI}
                 ></AddAICardDialog>
             </div>
             <div>
@@ -218,17 +243,24 @@ function StudyDeck(props) {
                                 below are yours:
                             </Typography>
                         </div>
-                        {tempQuestions.map((qa) => {
+                        {tempQuestions.map((qa, index) => {
                             console.log(qa);
 
                             return (
-                                <div className="m-2">
-                                    {qa.map((i) => {
+                                <div className="m-2" key={'outer' + index}>
+                                    {qa.map((item) => {
                                         return (
-                                            <div>
-                                                <Paper className="">
-                                                    Question: {i.question}{' '}
-                                                    Answer: {i.answer}
+                                            // TODO: fix react unique key bug
+                                            <div key={'inner' + index}>
+                                                <Paper
+                                                    key={'qa' + index}
+                                                    className="cursor-pointer"
+                                                    onClick={() => {
+                                                        noIDHandler(index);
+                                                    }}
+                                                >
+                                                    Question: {item.question}{' '}
+                                                    Answer: {item.answer}
                                                 </Paper>
                                             </div>
                                         );
