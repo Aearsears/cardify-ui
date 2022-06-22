@@ -81,11 +81,8 @@ function StudyDeck(props) {
         return <Spinner size={20}></Spinner>;
     }
     if (error) {
-        console.log(error);
-
         return <div>There was an error.</div>;
     }
-    console.log(cardsdata);
 
     const fetcher = (url: string, id: string) =>
         fetch(url + `?id=${id}`, {
@@ -127,7 +124,6 @@ function StudyDeck(props) {
         );
         ws.current.onmessage = (event) => {
             let message = JSON.parse(event.data);
-            console.log(message);
             if (message.message === qaid) {
                 //wait for the backend to issue a message with the id and then get the q and a.
                 fetcher(
@@ -138,7 +134,6 @@ function StudyDeck(props) {
                     //create the cards from the q and a.
                     qa.forEach((item) => {
                         addOneCard(item.question, item.answer, id as string);
-                        console.log(item);
                     });
                     setLoading(false);
                     ws.current.close();
@@ -180,11 +175,9 @@ function StudyDeck(props) {
     };
 
     const noIDHandler = (index: number) => {
-        console.log('tempqeust' + index);
         let qa = tempQuestions[index];
         qa.forEach((card) => {
             addOneCard(card.question, card.answer, id as string);
-            console.log(card);
         });
         setLoading(false);
         setTempQuestions([]);
@@ -251,8 +244,6 @@ function StudyDeck(props) {
                             </Typography>
                         </div>
                         {tempQuestions.map((qa, index) => {
-                            console.log(qa);
-
                             return (
                                 <div className="m-2" key={'outer' + index}>
                                     {qa.map((item, iindex) => {

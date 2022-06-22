@@ -33,16 +33,10 @@ export default function MyApp({
     useEffect(() => {
         const mode = localStorage.getItem('mode') === 'true';
         // set mode
-        console.log(`get localStore ${mode}`);
         setDarkMode(mode);
     }, []);
 
-    // useEffect(() => {
-    //   console.log(`set localStore ${darkMode}`);
-    //   localStorage.setItem("mode", darkMode);
-    // }, [darkMode]);
     const _setDarkMode = (newmode: boolean) => {
-        console.log(`set localStore ${newmode}`);
         localStorage.setItem('darkmode', newmode.toString());
         setDarkMode(newmode);
     };

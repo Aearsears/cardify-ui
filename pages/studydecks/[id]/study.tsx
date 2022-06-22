@@ -47,7 +47,6 @@ function Study(props) {
         setFlipped(!isFlipped);
     };
     const handleSpacebar = (event: React.KeyboardEvent<HTMLElement>) => {
-        console.log(event.code);
         if (event.code === 'Space') {
             setFlipped(!isFlipped);
         } else if (event.code === 'ArrowRight') {
