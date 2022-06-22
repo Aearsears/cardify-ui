@@ -6,40 +6,72 @@ import { Card } from '../../../interfaces';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useRouter } from 'next/router';
+import { useQuery } from 'urql';
+import Spinner from '../../../components/Spinner';
 
 Study.propTypes = {};
 
+const CardsQuery = `
+query getDeck($id: ID!) {
+  deckById(id:$id) {
+    cardSet {
+      edges {
+        node {
+            id
+            answerText
+            questionText
+        }
+      }
+    }
+  }
+}
+`;
+
 function Study(props) {
     const router = useRouter();
-    const cards: Card[] = [
-        {
-            question: 'What is the capital of USA?',
-            answer: 'washington',
-            context: 'geography'
-        },
-        {
-            question: 'what is the powerhouse of the cell?',
-            answer: 'Mitochondira',
-            context: 'biology'
-        },
-        {
-            question: 'What is a prime number?',
-            answer: 'a number that is only divisible by itself and one',
-            context: 'math'
-        }
-    ];
+    const { id } = router.query;
 
     const [cardCounter, setCounter] = useState(0);
     const [isFlipped, setFlipped] = useState(false);
 
+    // get deck info from backend api
+    const [result, reexecuteQuery] = useQuery({
+        query: CardsQuery,
+        variables: { id },
+        pause: true
+    });
+
+    const { data: cardsdata, fetching, error } = result;
+
+    useEffect(() => {
+        if (router.isReady) {
+            //no cache for first request
+            reexecuteQuery();
+        }
+    }, [router.isReady]);
+
+    useEffect(() => {
+        setFlipped(false);
+    }, [cardCounter]);
+
+    if (fetching) {
+        return <Spinner size={20}></Spinner>;
+    }
+    if (error) {
+        return <div>There was an error.</div>;
+    }
+    if (cardsdata?.length == 0) {
+        return <div>No cards.</div>;
+    }
+
     const goForward = () => {
         //((a % n ) + n ) % n
-        let n = cards.length;
-        setCounter((((cardCounter + 1) % n) + n) % cards.length);
+        let n = cardsdata?.deckById.cardSet.edges.length;
+        setCounter((((cardCounter + 1) % n) + n) % n);
     };
     const goBack = () => {
-        let n = cards.length;
-        setCounter((((cardCounter - 1) % n) + n) % cards.length);
+        let n = cardsdata?.deckById.cardSet.edges.length;
+        setCounter((((cardCounter - 1) % n) + n) % n);
     };
 
     const handleCardClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -55,10 +87,6 @@ function Study(props) {
             goBack();
         }
     };
-
-    useEffect(() => {
-        setFlipped(false);
-    }, [cardCounter]);
 
     return (
         <div
@@ -81,9 +109,14 @@ function Study(props) {
             <div className=" w-full p-4">
                 <div className="card-container text-center flex items-center justify-center">
                     <Flashcard
-                        question={cards[cardCounter].question}
-                        answer={cards[cardCounter].answer}
-                        context={cards[cardCounter].context}
+                        question={
+                            cardsdata?.deckById.cardSet.edges[cardCounter].node
+                                .questionText
+                        }
+                        answer={
+                            cardsdata?.deckById.cardSet.edges[cardCounter].node
+                                .answerText
+                        }
                         clickHandler={handleCardClick}
                         flipped={isFlipped}
                     ></Flashcard>
@@ -98,7 +131,8 @@ function Study(props) {
                             <ArrowBackIosNewIcon fontSize="inherit" />
                         </IconButton>
                         <span>
-                            {cardCounter + 1} of {cards.length}
+                            {cardCounter + 1} of{' '}
+                            {cardsdata?.deckById.cardSet.edges.length}
                         </span>
                         <IconButton
                             aria-label="forward"

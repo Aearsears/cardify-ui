@@ -37,9 +37,9 @@ function Homepage(props) {
                             <Emoji label="lightning" symbol="⚡"></Emoji>
                         </Typography>
                     </div>
-                    <div className="grid grid-flow-row grid-cols-2">
+                    <div className="grid grid-flow-row grid-cols-1">
                         <HPAnimation></HPAnimation>
-                        <HPCodeBlock></HPCodeBlock>
+                        {/* <HPCodeBlock></HPCodeBlock> */}
                     </div>
                     <Lightning className="w-full h-full absolute top-0 right-0"></Lightning>
                 </div>

@@ -55,6 +55,7 @@ function EditCard(props: Props) {
                     .toString('ascii')
                     .split(':')[1]
             ).then((result) => {
+                console.log(result);
                 if (result.error) {
                     setError(true);
                 }

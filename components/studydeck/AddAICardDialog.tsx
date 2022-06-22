@@ -7,7 +7,8 @@ import {
     DialogContent,
     DialogContentText,
     TextField,
-    DialogActions
+    DialogActions,
+    Typography
 } from '@mui/material';
 
 AddAICardDialog.propTypes = {};
@@ -39,6 +40,7 @@ function AddAICardDialog(props: Props) {
                     </DialogContentText>
                     <TextField
                         autoFocus
+                        multiline
                         margin="dense"
                         id="name"
                         label="Text"
@@ -50,14 +52,27 @@ function AddAICardDialog(props: Props) {
                         onChange={handleTextFieldChange}
                     />
                     <DialogContentText color="info">
-                        Current number of characters: {props.dialogText.length}
+                        Current number of characters:{' '}
+                        <span
+                            className={
+                                props.dialogText.length > 500
+                                    ? 'text-red-500'
+                                    : ''
+                            }
+                        >
+                            {props.dialogText.length}
+                        </span>
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="info">
                         Cancel
                     </Button>
-                    <Button onClick={props.handleGo} color="info">
+                    <Button
+                        onClick={props.handleGo}
+                        color="info"
+                        disabled={props.dialogText.length > 500}
+                    >
                         Go!
                     </Button>
                 </DialogActions>
