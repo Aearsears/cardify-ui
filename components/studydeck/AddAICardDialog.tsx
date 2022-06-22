@@ -39,6 +39,7 @@ function AddAICardDialog(props: Props) {
                     </DialogContentText>
                     <TextField
                         autoFocus
+                        multiline
                         margin="dense"
                         id="name"
                         label="Text"
