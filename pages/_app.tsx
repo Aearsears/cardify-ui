@@ -31,7 +31,7 @@ export default function MyApp({
     const [darkMode, setDarkMode] = useState(prefersDarkMode);
 
     useEffect(() => {
-        const mode = localStorage.getItem('mode') === 'true';
+        const mode = localStorage.getItem('darkmode') === 'true';
         // set mode
         setDarkMode(mode);
     }, []);
