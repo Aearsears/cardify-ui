@@ -2,6 +2,10 @@
 
 App that allows users to create flashcards with AI. Deployed on Netlify.
 
+## Copy and paste in your notes
+
+## Start studying
+
 ### Front end Technologies
 
 -   Next.js
